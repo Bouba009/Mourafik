@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>حضانة - طفلك في أيادي آمنة</title>
+    
+    <!-- Bootstrap 5 RTL -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- SweetAlert2 (للتنبيهات الاحترافية) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --primary-color: #1e293b; /* كحلي عصري */
+            --neon-green: #39ff14; /* أخضر نيون */
+            --accent-color: #10b981;
+            --bg-light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* --- Header Styling --- */
+        .hero-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 60px 0;
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 40px;
+        }
+
+        .neon-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        /* --- Cards & UI Elements --- */
+        .custom-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .role-selector {
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            background: #fff;
+        }
+
+        .role-selector.active {
+            border-color: var(--accent-color);
+            background-color: #ecfdf5;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        /* --- Responsive Tables (Mobile Cards) --- */
+        @media (max-width: 768px) {
+            .neon-text { font-size: 2.5rem; }
+            .hero-header { padding: 40px 0; border-radius: 25px; }
+            
+            /* تحويل الجدول إلى بطاقات في الموبايل */
+            .mobile-table thead { display: none; }
+            .mobile-table tbody tr {
+                display: block;
+                background: white;
+                margin-bottom: 15px;
+                border-radius: 12px;
+                padding: 15px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                border: 1px solid #eee;
+            }
+            .mobile-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 0;
+                border: none;
+                border-bottom: 1px dashed #eee;
+            }
+            .mobile-table td:last-child { border-bottom: none; }
+            .mobile-table td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #64748b;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* --- Animations --- */
+        .view-section { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Badges --- */
+        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .bg-pending { background-color: #fff7ed; color: #c2410c; }
+        .bg-accepted { background-color: #f0fdf4; color: #15803d; }
+        .bg-rejected { background-color: #fef2f2; color: #b91c1c; }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-dark d-flex align-items-center" href="#" onclick="location.reload()">
+                <i class="bi bi-balloon-heart-fill text-success me-2 fs-4"></i> حضانة
+            </a>
+            <div class="d-flex align-items-center">
+                <span id="userInfo" class="text-secondary small fw-bold me-3 d-none d-md-block"></span>
+                <button id="logoutBtn" class="btn btn-light btn-sm text-danger border d-none fw-bold" onclick="logout()">
+                    <i class="bi bi-box-arrow-left"></i> <span class="d-none d-md-inline">خروج</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. شاشة الدخول والتسجيل -->
+    <section id="authView" class="view-section active">
+        <header class="hero-header">
+            <div class="container">
+                <h1 class="neon-text">حضانة</h1>
+                <p class="subtitle">طفلك في أيادي آمنة</p>
+            </div>
+        </header>
+
+        <div class="container pb-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-5">
+                    <div class="custom-card p-4">
+                        <ul class="nav nav-pills mb-4 nav-justified p-1 bg-light rounded-pill" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active rounded-pill" data-bs-toggle="pill" data-bs-target="#login-content">دخول</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link rounded-pill" data-bs-toggle="pill" data-bs-target="#register-content">جديد</button>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content">
+                            <!-- Login -->
+                            <div class="tab-pane fade show active" id="login-content">
+                                <form id="loginForm">
+                                    <div class="mb-3">
+                                        <label class="form-label small text-muted">البريد الإلكتروني</label>
+                                        <input type="email" class="form-control" id="loginEmail" required placeholder="name@example.com">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label small text-muted">كلمة المرور</label>
+                                        <input type="password" class="form-control" id="loginPass" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-bold shadow-sm">تسجيل الدخول</button>
+                                </form>
+                                <div class="mt-4 text-center p-3 bg-light rounded small text-muted border border-dashed">
+                                    
+                                </div>
+                            </div>
+
+                            <!-- Register -->
+                            <div class="tab-pane fade" id="register-content">
+                                <form id="registerForm">
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <div class="role-selector text-center active" onclick="selectRole('parent', this)">
+                                                <i class="bi bi-person-fill fs-3 text-primary"></i>
+                                                <div class="small fw-bold mt-1">ولي أمر</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="role-selector text-center" onclick="selectRole('caregiver', this)">
+                                                <i class="bi bi-heart-pulse-fill fs-3 text-danger"></i>
+                                                <div class="small fw-bold mt-1">مرافقة</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="regRole" value="parent">
+
+                                    <div class="mb-2"><input type="text" class="form-control" id="regName" placeholder="الاسم الكامل" required></div>
+                                    <div class="mb-2"><input type="email" class="form-control" id="regEmail" placeholder="البريد الإلكتروني" required></div>
+                                    <div class="mb-2"><input type="tel" class="form-control" id="regPhone" placeholder="رقم الهاتف" required></div>
+                                    <div class="mb-2"><input type="password" class="form-control" id="regPass" placeholder="كلمة المرور" required></div>
+                                    <div class="mb-2">
+                                        <select class="form-select" id="regWilaya" required>
+                                            <option value="" disabled selected>اختر الولاية</option>
+                                            <option value="الجزائر">الجزائر</option>
+                                            <option value="البليدة">البليدة</option>
+                                            <option value="تيبازة">تيبازة</option>
+                                            <option value="وهران">وهران</option>
+                                            <option value="قسنطينة">قسنطينة</option>
+                                            <option value="بومرداس">بومرداس</option>
+                                        </select>
+                                    </div>
+
+                                    <div id="caregiverFields" class="d-none mt-3 p-3 bg-light rounded border">
+                                        <div class="mb-2">
+                                            <label class="small fw-bold">نوع الخدمة</label>
+                                            <select class="form-select" id="regService">
+                                                <option value="حضانتة منزلية">حضانة منزلية</option>
+                                                <option value="أخصائية نطق">أخصائية نطق</option>
+                                                <option value="رعاية أطفال التوحد">رعاية أطفال التوحد</option>
+                                                <option value="دروس خصوصية">دروس خصوصية</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-0">
+                                            <label class="small fw-bold">رفع الشهادة (PDF)</label>
+                                            <input type="file" class="form-control" id="regCert" accept=".pdf">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success w-100 mt-3 py-2 fw-bold">إنشاء حساب</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. واجهة الولي (Parent) -->
+    <section id="parentView" class="view-section">
+        <div class="container py-4">
+            <h4 class="mb-4 fw-bold text-primary"><i class="bi bi-search"></i> ابحث عن مرافقة</h4>
+            
+            <!-- فلتر البحث المتجاوب -->
+            <div class="custom-card p-3 mb-4">
+                <div class="row g-2">
+                    <div class="col-6 col-md-3">
+                        <select class="form-select" id="searchWilaya">
+                            <option value="الكل">كل الولايات</option>
+                            <option value="الجزائر">الجزائر</option>
+                            <option value="البليدة">البليدة</option>
+                            <option value="تيبازة">تيبازة</option>
+                            <option value="وهران">وهران</option>
+                            <option value="قسنطينة">قسنطينة</option>
+                            <option value="بومرداس">بومرداس</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <select class="form-select" id="searchService">
+                            <option value="الكل">كل الخدمات</option>
+                            <option value="حضانتة منزلية">حضانة منزلية</option>
+                            <option value="أخصائية نطق">أخصائية نطق</option>
+                            <option value="رعاية أطفال التوحد">رعاية أطفال التوحد</option>
+                            <option value="دروس خصوصية">دروس خصوصية</option>
+                        </select>
+                    </div>
+                    <div class="col-8 col-md-4">
+                        <input type="number" class="form-control" id="searchAge" placeholder="عمر الطفل (سنوات)">
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <button class="btn btn-primary w-100 fw-bold" onclick="performSearch()">بحث</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- النتائج -->
+            <div class="row g-3 mb-5" id="resultsArea"></div>
+            
+            <h5 class="fw-bold border-bottom pb-2 mb-3">طلباتي السابقة</h5>
+            <div class="custom-card p-0">
+                <table class="table table-hover mb-0 mobile-table">
+                    <thead class="table-light">
+                        <tr>
+                            <th>المرافقة</th>
+                            <th>الخدمة</th>
+                            <th>الحالة</th>
+                            <th>التواصل</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myRequestsTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. واجهة المرافقة (Caregiver) -->
+    <section id="caregiverView" class="view-section">
+        <div class="container py-4">
+            <!-- ملخص البروفايل -->
+            <div class="custom-card p-3 mb-4 d-flex align-items-center bg-white border-start border-4 border-success">
+                <img src="https://cdn-icons-png.flaticon.com/512/4042/4042356.png" width="60" class="rounded-circle bg-light border p-1 me-3">
+                <div>
+                    <h5 class="mb-1 fw-bold" id="cgNameProfile">الاسم</h5>
+                    <p class="mb-0 small text-muted">
+                        <i class="bi bi-geo-alt-fill text-danger"></i> <span id="cgWilayaProfile"></span> | 
+                        <i class="bi bi-briefcase-fill text-primary"></i> <span id="cgServiceProfile"></span>
+                    </p>
+                </div>
+                <div class="ms-auto">
+                    <button class="btn btn-outline-dark btn-sm rounded-pill" onclick="Toast.fire({icon:'info', title:'قريباً'})">تعديل</button>
+                </div>
+            </div>
+
+            <h5 class="fw-bold mb-3"><i class="bi bi-inbox-fill text-primary"></i> الطلبات الواردة</h5>
+            <div class="custom-card p-0">
+                <table class="table mb-0 mobile-table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>الولي</th>
+                            <th>الطفل</th>
+                            <th>التفاصيل</th>
+                            <th>الأيام</th>
+                            <th>الإجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="incomingRequestsTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal تقديم الطلب -->
+    <div class="modal fade" id="requestModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold">تقديم طلب خدمة</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="sendRequestForm">
+                        <input type="hidden" id="targetCaregiverId"> <!-- إصلاح المشكلة هنا -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">اسم الطفل</label>
+                            <input type="text" class="form-control" id="reqChildName" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="form-label small fw-bold">العمر</label>
+                                <input type="number" class="form-control" id="reqChildAge" required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label small fw-bold">المدة</label>
+                                <select class="form-select" id="reqDuration">
+                                    <option>شهر</option>
+                                    <option>3 أشهر</option>
+                                    <option>سنة</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">الأيام المفضلة</label>
+                            <input type="text" class="form-control" id="reqDays" placeholder="مثال: الأحد إلى الخميس" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold">تأكيد وإرسال</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // --- 1. إعدادات التنبيهات الاحترافية (Toast) ---
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-start',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        // --- 2. قاعدة البيانات المحاكية (Local Storage) ---
+        const initialUsers = [
+            { id: 'c1', name: 'سارة محمد', email: 'nounou@test.com', pass: '123', role: 'caregiver', phone: '0550112233', wilaya: 'الجزائر', service: 'حضانتة منزلية', hasCert: true },
+            { id: 'c2', name: 'أمينة بن علي', email: 'amina@test.com', pass: '123', role: 'caregiver', phone: '0660445566', wilaya: 'وهران', service: 'أخصائية نطق', hasCert: true },
+            { id: 'p1', name: 'أحمد الولي', email: 'parent@test.com', pass: '123', role: 'parent', phone: '0555000000', wilaya: 'الجزائر' }
+        ];
+
+        if (!localStorage.getItem('users')) localStorage.setItem('users', JSON.stringify(initialUsers));
+        if (!localStorage.getItem('requests')) localStorage.setItem('requests', JSON.stringify([]));
+
+        const DB = {
+            getUsers: () => JSON.parse(localStorage.getItem('users')),
+            saveUser: (user) => {
+                const users = DB.getUsers();
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+            },
+            getRequests: () => JSON.parse(localStorage.getItem('requests')),
+            saveRequest: (req) => {
+                const reqs = DB.getRequests();
+                reqs.push(req);
+                localStorage.setItem('requests', JSON.stringify(reqs));
+            },
+            updateRequest: (reqId, status) => {
+                const reqs = DB.getRequests();
+                const idx = reqs.findIndex(r => r.id == reqId);
+                if (idx !== -1) {
+                    reqs[idx].status = status;
+                    localStorage.setItem('requests', JSON.stringify(reqs));
+                }
+            }
+        };
+
+        let currentUser = null;
+
+        // --- 3. إدارة الجلسة والواجهة ---
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+        }
+
+        window.selectRole = (role, elem) => {
+            document.querySelectorAll('.role-selector').forEach(el => el.classList.remove('active'));
+            elem.classList.add('active');
+            document.getElementById('regRole').value = role;
+            const fields = document.getElementById('caregiverFields');
+            role === 'caregiver' ? fields.classList.remove('d-none') : fields.classList.add('d-none');
+        };
+
+        function logout() {
+            currentUser = null;
+            switchView('authView');
+            document.getElementById('logoutBtn').classList.add('d-none');
+            document.getElementById('userInfo').innerText = '';
+            document.getElementById('loginForm').reset();
+        }
+
+        // --- 4. تسجيل الدخول ---
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPass').value;
+            const user = DB.getUsers().find(u => u.email === email && u.pass === pass);
+
+            if (user) {
+                currentUser = user;
+                document.getElementById('logoutBtn').classList.remove('d-none');
+                document.getElementById('userInfo').innerText = user.name;
+                
+                Toast.fire({ icon: 'success', title: 'تم تسجيل الدخول بنجاح' });
+
+                if (user.role === 'parent') {
+                    switchView('parentView');
+                    performSearch();
+                    loadMyRequests();
+                } else {
+                    switchView('caregiverView');
+                    loadCaregiverDashboard();
+                }
+            } else {
+                Toast.fire({ icon: 'error', title: 'البيانات غير صحيحة' });
+            }
+        });
+
+        // --- 5. تسجيل جديد ---
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const role = document.getElementById('regRole').value;
+            // استخدام Date.now كسلسلة نصية لضمان التوافق
+            const newUser = {
+                id: 'u' + Date.now(), 
+                name: document.getElementById('regName').value,
+                email: document.getElementById('regEmail').value,
+                phone: document.getElementById('regPhone').value,
+                pass: document.getElementById('regPass').value,
+                role: role,
+                wilaya: document.getElementById('regWilaya').value,
+                createdAt: new Date().toISOString()
+            };
+
+            if (role === 'caregiver') {
+                newUser.service = document.getElementById('regService').value;
+                if (!document.getElementById('regCert').value) {
+                    Toast.fire({ icon: 'warning', title: 'يجب رفع الشهادة' });
+                    return;
+                }
+                newUser.hasCert = true;
+            }
+
+            DB.saveUser(newUser);
+            Toast.fire({ icon: 'success', title: 'تم إنشاء الحساب! سجل دخولك الآن' });
+            document.querySelector('[data-bs-target="#login-content"]').click();
+            document.getElementById('registerForm').reset();
+        });
+
+        // --- 6. وظائف الولي (Parent) ---
+        function performSearch() {
+            const wilaya = document.getElementById('searchWilaya').value;
+            const service = document.getElementById('searchService').value;
+            
+            const caregivers = DB.getUsers().filter(u => u.role === 'caregiver');
+            const filtered = caregivers.filter(c => {
+                return (wilaya === 'الكل' || c.wilaya === wilaya) && 
+                       (service === 'الكل' || c.service === service);
+            });
+
+            const container = document.getElementById('resultsArea');
+            container.innerHTML = '';
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center text-muted py-4">لا توجد نتائج مطابقة</div>';
+                return;
+            }
+
+            filtered.forEach(c => {
+                // نمرر الـ ID كـ string داخل دالة openRequestModal
+                container.innerHTML += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="custom-card p-3 h-100 d-flex flex-column text-center">
+                            <div class="mx-auto mb-2 position-relative">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4042/4042356.png" width="80" class="rounded-circle bg-light border">
+                                ${c.hasCert ? '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"><i class="bi bi-check-lg"></i></span>' : ''}
+                            </div>
+                            <h5 class="fw-bold text-dark">${c.name}</h5>
+                            <div class="mb-3">
+                                <span class="badge bg-light text-dark border">${c.service}</span>
+                                <span class="badge bg-light text-dark border">${c.wilaya}</span>
+                            </div>
+                            <button class="btn btn-outline-primary fw-bold mt-auto w-100" onclick="openRequestModal('${c.id}')">
+                                <i class="bi bi-send-fill"></i> تقديم طلب
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.openRequestModal = (caregiverId) => {
+            // FIX: التأكد من وضع ID الصحيح في الحقل المخفي
+            document.getElementById('targetCaregiverId').value = caregiverId;
+            new bootstrap.Modal(document.getElementById('requestModal')).show();
+        };
+
+        document.getElementById('sendRequestForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // FIX: قراءة الـ ID وتأكد أنه ليس فارغاً
+            const targetId = document.getElementById('targetCaregiverId').value;
+            if(!targetId) {
+                Toast.fire({ icon: 'error', title: 'خطأ في تحديد المرافقة' });
+                return;
+            }
+
+            const req = {
+                id: Date.now(),
+                parentId: currentUser.id,
+                parentName: currentUser.name,
+                parentPhone: currentUser.phone,
+                caregiverId: targetId,
+                childName: document.getElementById('reqChildName').value,
+                childAge: document.getElementById('reqChildAge').value,
+                serviceType: currentUser.service || 'خدمة', // نوع الخدمة الافتراضي
+                days: document.getElementById('reqDays').value,
+                duration: document.getElementById('reqDuration').value,
+                status: 'pending'
+            };
+
+            DB.saveRequest(req);
+            bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide();
+            
+            // تنبيه احترافي
+            Swal.fire({
+                icon: 'success',
+                title: 'تم إرسال الطلب!',
+                text: 'ستتلقى إشعاراً عند القبول',
+                confirmButtonColor: '#10b981',
+                confirmButtonText: 'حسناً'
+            });
+            
+            loadMyRequests();
+            document.getElementById('sendRequestForm').reset();
+        });
+
+        function loadMyRequests() {
+            const reqs = DB.getRequests().filter(r => r.parentId === currentUser.id);
+            const tbody = document.getElementById('myRequestsTable');
+            tbody.innerHTML = '';
+            const users = DB.getUsers();
+
+            reqs.forEach(r => {
+                const cg = users.find(u => u.id === r.caregiverId) || {name: 'غير معروف'};
+                let statusHtml = '';
+                let contactHtml = '<span class="text-muted small"><i class="bi bi-lock-fill"></i> مخفي</span>';
+
+                if(r.status === 'pending') statusHtml = '<span class="status-badge bg-pending">انتظار</span>';
+                else if(r.status === 'accepted') {
+                    statusHtml = '<span class="status-badge bg-accepted">مقبول</span>';
+                    contactHtml = `<a href="tel:${cg.phone}" class="btn btn-sm btn-success rounded-pill px-3"><i class="bi bi-telephone-fill"></i> ${cg.phone}</a>`;
+                } else {
+                    statusHtml = '<span class="status-badge bg-rejected">مرفوض</span>';
+                }
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td data-label="المرافقة">${cg.name}</td>
+                        <td data-label="الخدمة">${r.childName} (${r.duration})</td>
+                        <td data-label="الحالة">${statusHtml}</td>
+                        <td data-label="التواصل">${contactHtml}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // --- 7. وظائف المرافقة (Caregiver) ---
+        function loadCaregiverDashboard() {
+            document.getElementById('cgNameProfile').innerText = currentUser.name;
+            document.getElementById('cgWilayaProfile').innerText = currentUser.wilaya;
+            document.getElementById('cgServiceProfile').innerText = currentUser.service;
+
+            // FIX: الفلترة الآن دقيقة لأن الـ IDs متطابقة (strings)
+            const reqs = DB.getRequests().filter(r => r.caregiverId === currentUser.id);
+            const tbody = document.getElementById('incomingRequestsTable');
+            tbody.innerHTML = '';
+
+            if (reqs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">لا توجد طلبات جديدة</td></tr>';
+                return;
+            }
+
+            reqs.forEach(r => {
+                let actions = '';
+                if(r.status === 'pending') {
+                    actions = `
+                        <button class="btn btn-sm btn-success rounded-pill me-1" onclick="handleReq(${r.id}, 'accepted')"><i class="bi bi-check-lg"></i> قبول</button>
+                        <button class="btn btn-sm btn-danger rounded-pill" onclick="handleReq(${r.id}, 'rejected')"><i class="bi bi-x-lg"></i></button>
+                    `;
+                } else if (r.status === 'accepted') {
+                    actions = '<span class="text-success small fw-bold"><i class="bi bi-check-circle-fill"></i> تم القبول</span>';
+                } else {
+                    actions = '<span class="text-danger small fw-bold">مرفوض</span>';
+                }
+
+                let parentInfo = r.parentName;
+                if(r.status === 'accepted') parentInfo += `<div class="mt-1"><a href="tel:${r.parentPhone}" class="badge bg-success text-decoration-none"><i class="bi bi-telephone"></i> ${r.parentPhone}</a></div>`;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td data-label="الولي">${parentInfo}</td>
+                        <td data-label="الطفل">${r.childName} (${r.childAge} سنوات)</td>
+                        <td data-label="التفاصيل" class="small text-muted">${r.duration}</td>
+                        <td data-label="الأيام">${r.days}</td>
+                        <td data-label="الإجراء">${actions}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        window.handleReq = (id, status) => {
+            Swal.fire({
+                title: status === 'accepted' ? 'قبول الطلب؟' : 'رفض الطلب؟',
+                text: status === 'accepted' ? 'سيظهر رقم هاتفك للولي' : 'لن يتم تقديم الخدمة',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: status === 'accepted' ? '#10b981' : '#ef4444',
+                confirmButtonText: 'نعم',
+                cancelButtonText: 'إلغاء'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    DB.updateRequest(id, status);
+                    loadCaregiverDashboard();
+                    Toast.fire({ icon: 'success', title: 'تم تحديث الحالة' });
+                }
+            });
+        };
+    </script>
+</body>
+</html>
