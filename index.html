@@ -133,11 +133,11 @@
                                     <form id="loginForm">
                                         <div class="mb-3"><input type="text" class="form-control" id="loginEmail" required data-i18n-placeholder="email_placeholder" autocapitalize="off" spellcheck="false"></div>
                                         <div class="mb-2"><input type="password" class="form-control" id="loginPass" required data-i18n-placeholder="password_placeholder" autocapitalize="off"></div>
-                                        <div class="text-end mb-4"><a href="#" class="text-decoration-none small text-muted" onclick="openForgotPassModal()" data-i18n="forgot_password">نسيت كلمة المرور؟</a></div>
+                                        <div class="text-end mb-4"><a href="#" class="text-decoration-none small text-muted" onclick="openForgotPassModal()" data-i18n="forgot_password">هل نسيت كلمة المرور؟</a></div>
                                         <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-bold shadow-sm" data-i18n="login_btn">تسجيل الدخول</button>
                                     </form>
                                     <div class="mt-4 text-center p-3 bg-light rounded small text-muted border border-dashed">
-                                        <strong data-i18n="demo_accounts">🅼🅾🆁🅰🅵🅸🅺</strong><br>
+                                        <strong data-i18n="demo_accounts">morafik</strong><br>
                                         
                                     </div>
                                 </div>
@@ -691,6 +691,10 @@
 
         // Initialize Dropdowns
         populateDropdowns();
+
+        // FIX: Apply placeholders and text immediately on load (حل المشكلة هنا)
+        document.querySelectorAll('[data-i18n]').forEach(el => el.innerText = t(el.getAttribute('data-i18n')));
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => el.placeholder = t(el.getAttribute('data-i18n-placeholder')));
     </script>
 </body>
-</html>
+</html>pour 
