@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>حضانة - طفلك في أيادي آمنة</title>
+    <title>مرافق - طفلك في أيادي آمنة</title>
     
     <!-- Bootstrap 5 RTL -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
@@ -27,80 +30,61 @@
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-light);
             overflow-x: hidden;
+            display: flex; flex-direction: column; min-height: 100vh;
         }
+        html[lang="fr"] body { font-family: 'Roboto', sans-serif; }
+        main { flex: 1; }
 
-        /* --- Header Styling --- */
+        /* UI Components */
         .hero-header {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            padding: 50px 0;
-            text-align: center;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            margin-bottom: 30px;
+            padding: 50px 0; text-align: center;
+            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 30px;
         }
-
         .neon-text {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-            margin-bottom: 5px;
+            font-size: 3rem; font-weight: 900; color: #fff;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5); margin-bottom: 5px;
         }
-
         .subtitle { color: #cbd5e1; font-size: 1.1rem; letter-spacing: 1px; font-weight: 300; }
-
-        /* --- Cards & UI Elements --- */
         .custom-card {
-            background: white;
-            border-radius: 16px;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            overflow: hidden;
+            background: white; border-radius: 16px; border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; overflow: hidden;
         }
-        
         .role-selector {
             cursor: pointer; border: 2px solid #e2e8f0; padding: 15px; border-radius: 12px; transition: all 0.2s; background: #fff;
         }
-        .role-selector.active {
-            border-color: var(--accent-color); background-color: #ecfdf5; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-        }
-
-        /* --- Animations --- */
+        .role-selector.active { border-color: var(--accent-color); background-color: #ecfdf5; }
         .view-section { display: none; animation: fadeIn 0.4s ease-in-out; }
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Mobile Responsive Table --- */
+        /* Mobile Table */
         @media (max-width: 768px) {
             .mobile-table thead { display: none; }
-            .mobile-table tbody tr {
-                display: block; background: white; margin-bottom: 15px; border-radius: 12px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee;
-            }
-            .mobile-table td {
-                display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border: none; border-bottom: 1px dashed #eee;
-            }
+            .mobile-table tbody tr { display: block; background: white; margin-bottom: 15px; border-radius: 12px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; }
+            .mobile-table td { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border: none; border-bottom: 1px dashed #eee; }
             .mobile-table td:last-child { border-bottom: none; }
-            .mobile-table td::before {
-                content: attr(data-label); font-weight: bold; color: #64748b; font-size: 0.9rem;
-            }
+            .mobile-table td::before { content: attr(data-label); font-weight: bold; color: #64748b; font-size: 0.9rem; }
         }
 
         .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
-        .bg-pending { background-color: #fff7ed; color: #c2410c; }
-        .bg-accepted { background-color: #f0fdf4; color: #15803d; }
-        .bg-rejected { background-color: #fef2f2; color: #b91c1c; }
-        
-        .profile-img-preview {
-            width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 3px solid var(--accent-color);
-        }
-
-        /* --- Star Rating CSS --- */
+        .profile-img-preview { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 3px solid var(--accent-color); }
         .star-rating i { color: #e2e8f0; cursor: pointer; transition: color 0.2s; font-size: 1.5rem; }
         .star-rating i.active { color: var(--gold); }
-        .small-stars i { font-size: 0.9rem; color: var(--gold); }
-        .review-card { background: #f8fafc; border-radius: 10px; padding: 10px; margin-bottom: 10px; border-right: 3px solid var(--gold); }
+        .app-footer { background-color: #fff; border-top: 1px solid #eee; padding: 30px 0; margin-top: auto; }
+        .footer-link { color: #64748b; text-decoration: none; margin: 0 10px; font-size: 0.9rem; cursor: pointer; }
+        .footer-link:hover { color: var(--primary-color); text-decoration: underline; }
+        .admin-stat-card { border-left: 4px solid var(--primary-color); }
+        .lang-btn { font-weight: bold; border: 2px solid var(--primary-color); color: var(--primary-color); }
+        .lang-btn:hover { background: var(--primary-color); color: #fff; }
+
+        /* Caregiver Stats Cards */
+        .cg-stat-card { border-radius: 12px; padding: 15px; color: white; margin-bottom: 15px; text-align: center; }
+        .cg-stat-total { background: linear-gradient(45deg, #3b82f6, #2563eb); }
+        .cg-stat-pending { background: linear-gradient(45deg, #f59e0b, #d97706); }
+        .cg-stat-accepted { background: linear-gradient(45deg, #10b981, #059669); }
+        .cg-stat-rejected { background: linear-gradient(45deg, #ef4444, #dc2626); }
     </style>
 </head>
 <body>
@@ -109,650 +93,606 @@
     <nav class="navbar navbar-expand bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-dark d-flex align-items-center" href="#" onclick="location.reload()">
-                <i class="bi bi-balloon-heart-fill text-success me-2 fs-4"></i> حضانة
+                <i class="bi bi-balloon-heart-fill text-success me-2 fs-4"></i> <span data-i18n="app_name">مرافق</span>
             </a>
-            <div class="d-flex align-items-center">
-                <button id="editProfileBtn" class="btn btn-outline-primary btn-sm me-2 d-none rounded-pill" onclick="openEditProfileModal()">
-                    <i class="bi bi-gear-fill"></i> <span class="d-none d-md-inline">إعدادات</span>
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-sm lang-btn rounded-pill" onclick="toggleLanguage()" id="langSwitcher">FR</button>
+                <button id="editProfileBtn" class="btn btn-outline-primary btn-sm d-none rounded-pill" onclick="openEditProfileModal()">
+                    <i class="bi bi-gear-fill"></i> <span class="d-none d-md-inline" data-i18n="settings">إعدادات</span>
                 </button>
-                <span id="userInfo" class="text-secondary small fw-bold me-3 d-none d-md-block"></span>
+                <span id="userInfo" class="text-secondary small fw-bold d-none d-md-block mx-2"></span>
                 <button id="logoutBtn" class="btn btn-light btn-sm text-danger border d-none fw-bold rounded-pill" onclick="logout()">
-                    <i class="bi bi-box-arrow-left"></i> <span class="d-none d-md-inline">خروج</span>
+                    <i class="bi bi-box-arrow-left"></i> <span class="d-none d-md-inline" data-i18n="logout">خروج</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- 1. AUTH SCREEN -->
-    <section id="authView" class="view-section active">
-        <header class="hero-header">
-            <div class="container">
-                <h1 class="neon-text">حضانة</h1>
-                <p class="subtitle">طفلك في أيادي آمنة</p>
-            </div>
-        </header>
+    <main>
+        <!-- 1. AUTH SCREEN -->
+        <section id="authView" class="view-section active">
+            <header class="hero-header">
+                <div class="container">
+                    <h1 class="neon-text" data-i18n="app_name">مرافق</h1>
+                    <p class="subtitle" data-i18n="slogan">طفلك في أيادي آمنة</p>
+                </div>
+            </header>
 
-        <div class="container pb-5">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-5">
-                    <div class="custom-card p-4">
-                        <ul class="nav nav-pills mb-4 nav-justified p-1 bg-light rounded-pill" role="tablist">
-                            <li class="nav-item"><button class="nav-link active rounded-pill" data-bs-toggle="pill" data-bs-target="#login-content">دخول</button></li>
-                            <li class="nav-item"><button class="nav-link rounded-pill" data-bs-toggle="pill" data-bs-target="#register-content">جديد</button></li>
-                        </ul>
-                        
-                        <div class="tab-content">
-                            <!-- Login -->
-                            <div class="tab-pane fade show active" id="login-content">
-                                <form id="loginForm">
-                                    <div class="mb-3"><input type="email" class="form-control" id="loginEmail" required placeholder="name@example.com"></div>
-                                    <div class="mb-4"><input type="password" class="form-control" id="loginPass" required placeholder="كلمة المرور"></div>
-                                    <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-bold shadow-sm">تسجيل الدخول</button>
-                                </form>
-                                <div class="mt-4 text-center p-3 bg-light rounded small text-muted border border-dashed">
-                                    <strong>حسابات للتجربة:</strong><br>
-                                    ولي: <code>parent@test.com</code> / <code>123</code><br>
-                                    مرافقة: <code>nounou@test.com</code> / <code>123</code>
+            <div class="container pb-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-5">
+                        <div class="custom-card p-4">
+                            <ul class="nav nav-pills mb-4 nav-justified p-1 bg-light rounded-pill" role="tablist">
+                                <li class="nav-item"><button class="nav-link active rounded-pill" data-bs-toggle="pill" data-bs-target="#login-content" data-i18n="login">دخول</button></li>
+                                <li class="nav-item"><button class="nav-link rounded-pill" data-bs-toggle="pill" data-bs-target="#register-content" data-i18n="register">جديد</button></li>
+                            </ul>
+                            
+                            <div class="tab-content">
+                                <!-- Login -->
+                                <div class="tab-pane fade show active" id="login-content">
+                                    <form id="loginForm">
+                                        <div class="mb-3"><input type="text" class="form-control" id="loginEmail" required data-i18n-placeholder="email_placeholder" autocapitalize="off" spellcheck="false"></div>
+                                        <div class="mb-2"><input type="password" class="form-control" id="loginPass" required data-i18n-placeholder="password_placeholder" autocapitalize="off"></div>
+                                        <div class="text-end mb-4"><a href="#" class="text-decoration-none small text-muted" onclick="openForgotPassModal()" data-i18n="forgot_password">نسيت كلمة المرور؟</a></div>
+                                        <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-bold shadow-sm" data-i18n="login_btn">تسجيل الدخول</button>
+                                    </form>
+                                    <div class="mt-4 text-center p-3 bg-light rounded small text-muted border border-dashed">
+                                        <strong data-i18n="demo_accounts">حسابات للتجربة:</strong><br>
+                                        Admin: <code>admin</code> / <code>abobob123</code><br>
+                                        Parent: <code>parent@test.com</code> / <code>123</code><br>
+                                        Nounou: <code>nounou@test.com</code> / <code>123</code>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Register -->
-                            <div class="tab-pane fade" id="register-content">
-                                <form id="registerForm">
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-6">
-                                            <div class="role-selector text-center active" onclick="selectRole('parent', this)">
-                                                <i class="bi bi-person-fill fs-3 text-primary"></i> <div class="small fw-bold mt-1">ولي أمر</div>
+                                <!-- Register -->
+                                <div class="tab-pane fade" id="register-content">
+                                    <form id="registerForm">
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-6">
+                                                <div class="role-selector text-center active" onclick="selectRole('parent', this)">
+                                                    <i class="bi bi-person-fill fs-3 text-primary"></i> <div class="small fw-bold mt-1" data-i18n="role_parent">ولي أمر</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="role-selector text-center" onclick="selectRole('caregiver', this)">
+                                                    <i class="bi bi-heart-pulse-fill fs-3 text-danger"></i> <div class="small fw-bold mt-1" data-i18n="role_caregiver">مرافقة</div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
-                                            <div class="role-selector text-center" onclick="selectRole('caregiver', this)">
-                                                <i class="bi bi-heart-pulse-fill fs-3 text-danger"></i> <div class="small fw-bold mt-1">مرافقة</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" id="regRole" value="parent">
-                                    <div class="mb-2"><input type="text" class="form-control" id="regName" placeholder="الاسم الكامل" required></div>
-                                    <div class="mb-2"><input type="email" class="form-control" id="regEmail" placeholder="البريد الإلكتروني" required></div>
-                                    <div class="mb-2"><input type="tel" class="form-control" id="regPhone" placeholder="رقم الهاتف" required></div>
-                                    <div class="mb-2"><input type="password" class="form-control" id="regPass" placeholder="كلمة المرور" required></div>
-                                    <div class="mb-2">
-                                        <select class="form-select" id="regWilaya" required>
-                                            <option value="" disabled selected>اختر الولاية</option>
-                                            <option value="الجزائر">الجزائر</option>
-                                            <option value="البليدة">البليدة</option>
-                                            <option value="تيبازة">تيبازة</option>
-                                            <option value="وهران">وهران</option>
-                                            <option value="قسنطينة">قسنطينة</option>
-                                            <option value="بومرداس">بومرداس</option>
-                                        </select>
-                                    </div>
-                                    <div id="caregiverFields" class="d-none mt-3 p-3 bg-light rounded border">
+                                        <input type="hidden" id="regRole" value="parent">
+                                        <div class="mb-2"><input type="text" class="form-control" id="regName" data-i18n-placeholder="fullname" required></div>
+                                        <div class="mb-2"><input type="email" class="form-control" id="regEmail" data-i18n-placeholder="email_placeholder" required autocapitalize="off"></div>
+                                        <div class="mb-2"><input type="tel" class="form-control" id="regPhone" data-i18n-placeholder="phone" required></div>
+                                        <div class="mb-2"><input type="password" class="form-control" id="regPass" data-i18n-placeholder="password_placeholder" required autocapitalize="off"></div>
                                         <div class="mb-2">
-                                            <label class="small fw-bold">نوع الخدمة</label>
-                                            <select class="form-select" id="regService">
-                                                <option value="حضانتة منزلية">حضانة منزلية</option>
-                                                <option value="أخصائية نطق">أخصائية نطق</option>
-                                                <option value="رعاية أطفال التوحد">رعاية أطفال التوحد</option>
-                                                <option value="دروس خصوصية">دروس خصوصية</option>
+                                            <select class="form-select dynamic-wilaya" id="regWilaya" required>
+                                                <!-- Populated by JS -->
                                             </select>
                                         </div>
-                                        <div class="mb-0">
-                                            <label class="small fw-bold">رفع الشهادة (PDF)</label>
-                                            <input type="file" class="form-control" id="regCert" accept=".pdf">
+                                        <div id="caregiverFields" class="d-none mt-3 p-3 bg-light rounded border">
+                                            <div class="mb-2">
+                                                <select class="form-select dynamic-service" id="regService">
+                                                    <!-- Populated by JS -->
+                                                </select>
+                                            </div>
+                                            <div class="mb-0"><label class="small fw-bold" data-i18n="upload_cert">رفع الشهادة (PDF)</label><input type="file" class="form-control" id="regCert" accept=".pdf"></div>
                                         </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-success w-100 mt-3 py-2 fw-bold">إنشاء حساب</button>
-                                </form>
+                                        <button type="submit" class="btn btn-success w-100 mt-3 py-2 fw-bold" data-i18n="create_account_btn">إنشاء حساب</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 2. PARENT VIEW -->
-    <section id="parentView" class="view-section">
-        <div class="container py-4">
-            <h4 class="fw-bold text-primary mb-4"><i class="bi bi-search"></i> ابحث عن مرافقة</h4>
-            <!-- Search Filter -->
-            <div class="custom-card p-3 mb-4">
-                <div class="row g-2">
-                    <div class="col-6 col-md-3">
-                        <select class="form-select" id="searchWilaya">
-                            <option value="الكل">كل الولايات</option>
-                            <option value="الجزائر">الجزائر</option>
-                            <option value="البليدة">البليدة</option>
-                            <option value="تيبازة">تيبازة</option>
-                            <option value="وهران">وهران</option>
-                            <option value="قسنطينة">قسنطينة</option>
-                        </select>
+        <!-- 2. PARENT VIEW -->
+        <section id="parentView" class="view-section">
+            <div class="container py-4">
+                <h4 class="fw-bold text-primary mb-4"><i class="bi bi-search"></i> <span data-i18n="search_title">ابحث عن مرافقة</span></h4>
+                <div class="custom-card p-3 mb-4">
+                    <div class="row g-2">
+                        <div class="col-6 col-md-3"><select class="form-select dynamic-wilaya" id="searchWilaya"><option value="الكل" data-i18n="all_wilayas">كل الولايات</option><!-- JS --></select></div>
+                        <div class="col-6 col-md-3"><select class="form-select dynamic-service" id="searchService"><option value="الكل" data-i18n="all_services">كل الخدمات</option><!-- JS --></select></div>
+                        <div class="col-8 col-md-4"><input type="number" class="form-control" id="searchAge" data-i18n-placeholder="child_age"></div>
+                        <div class="col-4 col-md-2"><button class="btn btn-primary w-100 fw-bold" onclick="performSearch()" data-i18n="search_btn">بحث</button></div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <select class="form-select" id="searchService">
-                            <option value="الكل">كل الخدمات</option>
-                            <option value="حضانتة منزلية">حضانة منزلية</option>
-                            <option value="أخصائية نطق">أخصائية نطق</option>
-                            <option value="دروس خصوصية">دروس خصوصية</option>
-                        </select>
+                </div>
+                <div class="row g-3 mb-5" id="resultsArea"></div>
+                <h5 class="fw-bold border-bottom pb-2 mb-3" data-i18n="my_requests">طلباتي السابقة</h5>
+                <div class="custom-card p-0"><table class="table table-hover mb-0 mobile-table"><thead class="table-light"><tr><th data-i18n="th_caregiver">المرافقة</th><th data-i18n="th_service">الخدمة</th><th data-i18n="th_status">الحالة</th><th data-i18n="th_action">الإجراء</th></tr></thead><tbody id="myRequestsTable"></tbody></table></div>
+            </div>
+        </section>
+
+        <!-- 3. CAREGIVER VIEW -->
+        <section id="caregiverView" class="view-section">
+            <div class="container py-4">
+                <!-- Profile Card & Availability -->
+                <div class="custom-card p-3 mb-4 d-flex align-items-center bg-white border-start border-4 border-success">
+                    <img id="dashboardProfileImg" src="" width="70" height="70" class="rounded-circle bg-light border p-1 me-3 object-fit-cover">
+                    <div class="flex-grow-1">
+                        <h5 class="mb-1 fw-bold" id="cgNameProfile"></h5>
+                        <div class="small-stars mb-1" id="cgRatingProfile"></div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="availabilityToggle" onchange="toggleAvailability()">
+                            <label class="form-check-label fw-bold small" for="availabilityToggle" id="availabilityLabel" data-i18n="status_online">أنا في الخدمة</label>
+                        </div>
                     </div>
-                    <div class="col-8 col-md-4">
-                        <input type="number" class="form-control" id="searchAge" placeholder="عمر الطفل">
-                    </div>
-                    <div class="col-4 col-md-2">
-                        <button class="btn btn-primary w-100 fw-bold" onclick="performSearch()">بحث</button>
+                    <div><button class="btn btn-outline-dark btn-sm rounded-pill" onclick="openEditProfileModal()"><i class="bi bi-pencil"></i> <span data-i18n="edit">تعديل</span></button></div>
+                </div>
+
+                <!-- Stats Dashboard -->
+                <div class="row mb-3">
+                    <div class="col-6 col-md-3"><div class="cg-stat-card cg-stat-total"><h3 class="fw-bold mb-0" id="cgStatTotal">0</h3><small data-i18n="stat_total_req">الكل</small></div></div>
+                    <div class="col-6 col-md-3"><div class="cg-stat-card cg-stat-pending"><h3 class="fw-bold mb-0" id="cgStatPending">0</h3><small data-i18n="stat_new_req">انتظار</small></div></div>
+                    <div class="col-6 col-md-3"><div class="cg-stat-card cg-stat-accepted"><h3 class="fw-bold mb-0" id="cgStatAccepted">0</h3><small data-i18n="stat_accepted">مقبولة</small></div></div>
+                    <div class="col-6 col-md-3"><div class="cg-stat-card cg-stat-rejected"><h3 class="fw-bold mb-0" id="cgStatRejected">0</h3><small data-i18n="stat_rejected">مرفوضة</small></div></div>
+                </div>
+
+                <h5 class="fw-bold mb-3"><i class="bi bi-inbox-fill text-primary"></i> <span data-i18n="incoming_requests">الطلبات الواردة</span></h5>
+                <div class="custom-card p-0"><table class="table mb-0 mobile-table align-middle"><thead class="table-light"><tr><th data-i18n="th_parent">الولي</th><th data-i18n="th_child">الطفل</th><th data-i18n="th_details">التفاصيل</th><th data-i18n="th_days">الأيام</th><th data-i18n="th_action">الإجراء</th></tr></thead><tbody id="incomingRequestsTable"></tbody></table></div>
+            </div>
+        </section>
+
+        <!-- 4. ADMIN VIEW -->
+        <section id="adminView" class="view-section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 py-4">
+                        <h3 class="fw-bold mb-4 text-primary" data-i18n="admin_panel">لوحة التحكم <span class="badge bg-danger fs-6">Admin</span></h3>
+                        
+                        <!-- Top Stats -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3"><div class="custom-card p-3 admin-stat-card border-primary"><h6 class="text-muted small" data-i18n="stat_users">المستخدمين</h6><h3 class="fw-bold mb-0" id="statTotalUsers">0</h3></div></div>
+                            <div class="col-md-3"><div class="custom-card p-3 admin-stat-card border-success"><h6 class="text-muted small" data-i18n="stat_caregivers">المرافقات</h6><h3 class="fw-bold mb-0" id="statCaregivers">0</h3></div></div>
+                            <div class="col-md-3"><div class="custom-card p-3 admin-stat-card border-warning"><h6 class="text-muted small" data-i18n="stat_reports">الشكاوى</h6><h3 class="fw-bold mb-0" id="statReportsCount">0</h3></div></div>
+                        </div>
+
+                        <!-- Professional Dashboard Sections: Successful Caregivers & Daily Transactions -->
+                        <div class="row g-4 mb-4">
+                            <!-- Successful Caregivers -->
+                            <div class="col-lg-5">
+                                <div class="custom-card h-100 p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="fw-bold mb-0 text-success"><i class="bi bi-trophy-fill"></i> <span data-i18n="successful_caregivers">أنجح المرافقات</span></h5>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless align-middle mb-0">
+                                            <tbody id="adminTopCaregivers">
+                                                <!-- Populated by JS -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Daily Transactions -->
+                            <div class="col-lg-7">
+                                <div class="custom-card h-100 p-4">
+                                    <h5 class="fw-bold mb-3 text-primary"><i class="bi bi-graph-up-arrow"></i> <span data-i18n="daily_transactions">التعاملات اليومية</span></h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th data-i18n="th_parent">الولي</th>
+                                                    <th data-i18n="th_caregiver">المرافقة</th>
+                                                    <th data-i18n="th_status">الحالة</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="adminDailyTrans">
+                                                <!-- Populated by JS -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Management -->
+                        <div class="custom-card p-4 mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="fw-bold mb-0"><i class="bi bi-people-fill"></i> <span data-i18n="manage_users">إدارة المستخدمين</span></h5>
+                                <input type="text" class="form-control w-50" id="adminSearch" data-i18n-placeholder="search_placeholder" onkeyup="loadAdminDashboard()">
+                            </div>
+                            <div class="table-responsive"><table class="table table-hover align-middle"><thead class="table-light"><tr><th data-i18n="th_name">الاسم</th><th data-i18n="th_role">النوع</th><th data-i18n="phone">الهاتف</th><th>Email</th><th class="text-danger">Pass</th><th data-i18n="th_status">الحالة</th><th data-i18n="th_action">إجراء</th></tr></thead><tbody id="adminUsersTable"></tbody></table></div>
+                        </div>
+
+                        <!-- Reports -->
+                        <div class="custom-card p-4 mb-4">
+                            <h5 class="fw-bold mb-3"><i class="bi bi-envelope-exclamation-fill"></i> <span data-i18n="reports_messages">الشكاوى والرسائل</span></h5>
+                            <div class="table-responsive"><table class="table table-striped"><thead class="table-dark"><tr><th data-i18n="sender">المرسل</th><th data-i18n="type">النوع</th><th data-i18n="message">الرسالة</th><th data-i18n="date">التاريخ</th></tr></thead><tbody id="adminReportsTable"></tbody></table></div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <!-- Search Results -->
-            <div class="row g-3 mb-5" id="resultsArea"></div>
-            
-            <h5 class="fw-bold border-bottom pb-2 mb-3">طلباتي السابقة</h5>
-            <div class="custom-card p-0">
-                <table class="table table-hover mb-0 mobile-table">
-                    <thead class="table-light">
-                        <tr>
-                            <th>المرافقة</th>
-                            <th>الخدمة</th>
-                            <th>الحالة</th>
-                            <th>الإجراء</th>
-                        </tr>
-                    </thead>
-                    <tbody id="myRequestsTable"></tbody>
-                </table>
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container text-center">
+            <h5 class="fw-bold text-dark mb-3" data-i18n="app_name">مرافق</h5>
+            <div class="mb-4">
+                <span class="footer-link" onclick="openModal('aboutModal')" data-i18n="about_us">من نحن</span>
+                <span class="footer-link" onclick="openModal('privacyModal')" data-i18n="privacy_policy">سياسة الخصوصية</span>
+                <span class="footer-link" onclick="openModal('contactModal')" data-i18n="contact_us">تواصل معنا</span>
             </div>
+            <button class="btn btn-sm btn-outline-danger rounded-pill mb-3" onclick="openModal('reportModal')"><i class="bi bi-exclamation-triangle"></i> <span data-i18n="report_issue">الإبلاغ عن مشكلة</span></button>
+            <p class="small text-muted mb-0" data-i18n="copyright">جميع الحقوق محفوظة &copy; 2024</p>
         </div>
-    </section>
-
-    <!-- 3. CAREGIVER VIEW -->
-    <section id="caregiverView" class="view-section">
-        <div class="container py-4">
-            <!-- Profile Card -->
-            <div class="custom-card p-3 mb-4 d-flex align-items-center bg-white border-start border-4 border-success">
-                <img id="dashboardProfileImg" src="" width="70" height="70" class="rounded-circle bg-light border p-1 me-3 object-fit-cover">
-                <div class="flex-grow-1">
-                    <h5 class="mb-1 fw-bold" id="cgNameProfile">الاسم</h5>
-                    <div class="small-stars mb-1" id="cgRatingProfile"></div>
-                    <p class="mb-0 small text-muted">
-                        <i class="bi bi-geo-alt-fill text-danger"></i> <span id="cgWilayaProfile"></span> | 
-                        <i class="bi bi-briefcase-fill text-primary"></i> <span id="cgServiceProfile"></span>
-                    </p>
-                    <div id="cgCertStatus" class="mt-1 small"></div>
-                </div>
-                <div>
-                    <button class="btn btn-outline-dark btn-sm rounded-pill" onclick="openEditProfileModal()">
-                        <i class="bi bi-pencil"></i> تعديل
-                    </button>
-                </div>
-            </div>
-
-            <h5 class="fw-bold mb-3"><i class="bi bi-inbox-fill text-primary"></i> الطلبات الواردة</h5>
-            <div class="custom-card p-0">
-                <table class="table mb-0 mobile-table align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>الولي</th>
-                            <th>الطفل</th>
-                            <th>التفاصيل</th>
-                            <th>الأيام</th>
-                            <th>الإجراء</th>
-                        </tr>
-                    </thead>
-                    <tbody id="incomingRequestsTable"></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+    </footer>
 
     <!-- ================= MODALS ================= -->
-
-    <!-- Modal: Request Service -->
-    <div class="modal fade" id="requestModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title fw-bold">تقديم طلب خدمة</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="sendRequestForm">
-                        <input type="hidden" id="targetCaregiverId">
-                        <div class="mb-3"><label class="form-label small fw-bold">اسم الطفل</label><input type="text" class="form-control" id="reqChildName" required></div>
-                        <div class="row">
-                            <div class="col-6 mb-3"><label class="form-label small fw-bold">العمر</label><input type="number" class="form-control" id="reqChildAge" required></div>
-                            <div class="col-6 mb-3">
-                                <label class="form-label small fw-bold">المدة</label>
-                                <select class="form-select" id="reqDuration">
-                                    <option>شهر</option>
-                                    <option>3 أشهر</option>
-                                    <option>سنة</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3"><label class="form-label small fw-bold">الأيام المفضلة</label><input type="text" class="form-control" id="reqDays" placeholder="مثال: الأحد إلى الخميس" required></div>
-                        <button type="submit" class="btn btn-primary w-100 fw-bold">تأكيد وإرسال</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal: Edit Profile -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title fw-bold">تعديل البروفايل</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editProfileForm">
-                        <div class="text-center mb-3">
-                            <div class="position-relative d-inline-block">
-                                <img id="editImgPreview" src="" class="profile-img-preview">
-                                <label for="editProfilePic" class="position-absolute bottom-0 start-0 bg-primary text-white p-1 rounded-circle" style="cursor: pointer;">
-                                    <i class="bi bi-camera-fill small"></i>
-                                </label>
-                            </div>
-                            <input type="file" id="editProfilePic" class="d-none" accept="image/*">
-                        </div>
-                        <div class="mb-3"><label class="form-label small fw-bold">الاسم الكامل</label><input type="text" class="form-control" id="editName" required></div>
-                        <div class="mb-3"><label class="form-label small fw-bold">رقم الهاتف</label><input type="tel" class="form-control" id="editPhone" required></div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">الولاية</label>
-                            <select class="form-select" id="editWilaya" required>
-                                <option value="الجزائر">الجزائر</option>
-                                <option value="البليدة">البليدة</option>
-                                <option value="تيبازة">تيبازة</option>
-                                <option value="وهران">وهران</option>
-                                <option value="قسنطينة">قسنطينة</option>
-                                <option value="بومرداس">بومرداس</option>
-                            </select>
-                        </div>
-                        <div id="caregiverEditFields" class="d-none border-top pt-3 mt-3">
-                            <h6 class="text-primary fw-bold mb-3">معلومات مهنية</h6>
-                            <div class="mb-3">
-                                <select class="form-select" id="editService">
-                                    <option value="حضانتة منزلية">حضانة منزلية</option>
-                                    <option value="أخصائية نطق">أخصائية نطق</option>
-                                    <option value="رعاية أطفال التوحد">رعاية أطفال التوحد</option>
-                                    <option value="دروس خصوصية">دروس خصوصية</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">تحديث الشهادة (PDF)</label>
-                                <input type="file" class="form-control" id="editCert" accept=".pdf">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100 fw-bold mt-2">حفظ التغييرات</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal: Rate Caregiver -->
-    <div class="modal fade" id="rateModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-warning text-dark">
-                    <h5 class="modal-title fw-bold">تقييم المرافقة</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <h6 id="rateCgName" class="mb-3"></h6>
-                    <div class="star-rating mb-3 d-flex justify-content-center gap-2" id="starContainer">
-                        <i class="bi bi-star-fill" data-val="1"></i>
-                        <i class="bi bi-star-fill" data-val="2"></i>
-                        <i class="bi bi-star-fill" data-val="3"></i>
-                        <i class="bi bi-star-fill" data-val="4"></i>
-                        <i class="bi bi-star-fill" data-val="5"></i>
-                    </div>
-                    <input type="hidden" id="ratingValue" value="0">
-                    <input type="hidden" id="rateRequestId">
-                    <input type="hidden" id="rateCaregiverId">
-                    <div class="mb-3">
-                        <textarea id="rateComment" class="form-control" rows="3" placeholder="اكتب رأيك وتجربتك هنا..."></textarea>
-                    </div>
-                    <button onclick="submitReview()" class="btn btn-dark w-100">نشر التقييم</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal: View Reviews -->
-    <div class="modal fade" id="reviewsListModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-light">
-                    <h5 class="modal-title fw-bold">آراء الأولياء</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="reviewsListBody">
-                    <!-- Reviews go here -->
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="modal fade" id="aboutModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" data-i18n="about_us">من نحن</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p data-i18n="about_text">منصة جزائرية رقمية...</p></div></div></div></div>
+    <div class="modal fade" id="privacyModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" data-i18n="privacy_policy">سياسة الخصوصية</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p data-i18n="privacy_text">نحن نحترم خصوصيتكم...</p></div></div></div></div>
+    <div class="modal fade" id="contactModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" data-i18n="contact_us">تواصل معنا</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><form onsubmit="submitReport(event, 'رسالة عامة')"><div class="mb-3"><label data-i18n="name">الاسم</label><input type="text" class="form-control" required></div><div class="mb-3"><label data-i18n="message">الرسالة</label><textarea class="form-control" rows="4" required></textarea></div><button type="submit" class="btn btn-primary w-100" data-i18n="send">إرسال</button></form></div></div></div></div>
+    <div class="modal fade" id="reportModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header bg-danger text-white"><h5 class="modal-title" data-i18n="report_issue">الإبلاغ عن مشكلة</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><form onsubmit="submitReport(event, 'بلاغ عن مشكلة')"><div class="mb-3"><label data-i18n="issue_details">تفاصيل المشكلة</label><textarea class="form-control" rows="4" required></textarea></div><button type="submit" class="btn btn-danger w-100" data-i18n="send_report">إرسال البلاغ</button></form></div></div></div></div>
+    <div class="modal fade" id="forgotPassModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" data-i18n="recover_pass">استرجاع كلمة المرور</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p class="small text-muted" data-i18n="recover_hint">أدخل بريدك الإلكتروني.</p><input type="email" id="forgotEmail" class="form-control mb-3"><button onclick="handleForgotPass()" class="btn btn-primary w-100" data-i18n="send">إرسال</button></div></div></div></div>
+    <div class="modal fade" id="requestModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-header bg-primary text-white"><h5 class="modal-title" data-i18n="request_service">تقديم طلب خدمة</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="sendRequestForm"><input type="hidden" id="targetCaregiverId"><div class="mb-3"><label class="form-label small fw-bold" data-i18n="child_name">اسم الطفل</label><input type="text" class="form-control" id="reqChildName" required></div><div class="row"><div class="col-6 mb-3"><label class="form-label small fw-bold" data-i18n="child_age">العمر</label><input type="number" class="form-control" id="reqChildAge" required></div><div class="col-6 mb-3"><label class="form-label small fw-bold" data-i18n="duration">المدة</label><select class="form-select" id="reqDuration"><option value="شهر" data-i18n="1_month">شهر</option><option value="3 أشهر" data-i18n="3_months">3 أشهر</option><option value="سنة" data-i18n="1_year">سنة</option></select></div></div><div class="mb-3"><label class="form-label small fw-bold" data-i18n="days">الأيام المفضلة</label><input type="text" class="form-control" id="reqDays" required></div><button type="submit" class="btn btn-primary w-100 fw-bold" data-i18n="confirm_send">تأكيد وإرسال</button></form></div></div></div></div>
+    <div class="modal fade" id="editProfileModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-header bg-dark text-white"><h5 class="modal-title" data-i18n="edit_profile">تعديل البروفايل</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editProfileForm"><div class="text-center mb-3"><div class="position-relative d-inline-block"><img id="editImgPreview" src="" class="profile-img-preview"><label for="editProfilePic" class="position-absolute bottom-0 start-0 bg-primary text-white p-1 rounded-circle" style="cursor: pointer;"><i class="bi bi-camera-fill small"></i></label></div><input type="file" id="editProfilePic" class="d-none" accept="image/*"></div><div class="mb-3"><label class="form-label small fw-bold" data-i18n="fullname">الاسم الكامل</label><input type="text" class="form-control" id="editName" required></div><div class="mb-3"><label class="form-label small fw-bold" data-i18n="phone">رقم الهاتف</label><input type="tel" class="form-control" id="editPhone" required></div><div class="mb-3"><label class="form-label small fw-bold" data-i18n="wilaya">الولاية</label><select class="form-select dynamic-wilaya" id="editWilaya" required></select></div><div class="bg-light p-3 rounded mb-3 border"><h6 class="text-danger small fw-bold mb-2" data-i18n="change_pass">تغيير كلمة المرور</h6><input type="password" class="form-control form-control-sm" id="editNewPass" autocapitalize="off"></div><div id="caregiverEditFields" class="d-none pt-2"><h6 class="text-primary fw-bold mb-2" data-i18n="pro_info">معلومات مهنية</h6><div class="mb-2"><select class="form-select dynamic-service" id="editService"></select></div></div><button type="submit" class="btn btn-success w-100 fw-bold mt-2" data-i18n="save">حفظ التغييرات</button></form></div></div></div></div>
+    <div class="modal fade" id="rateModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-header bg-warning text-dark"><h5 class="modal-title" data-i18n="rate_caregiver">تقييم المرافقة</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body text-center"><h6 id="rateCgName" class="mb-3"></h6><div class="star-rating mb-3 d-flex justify-content-center gap-2" id="starContainer"><i class="bi bi-star-fill" data-val="1"></i><i class="bi bi-star-fill" data-val="2"></i><i class="bi bi-star-fill" data-val="3"></i><i class="bi bi-star-fill" data-val="4"></i><i class="bi bi-star-fill" data-val="5"></i></div><input type="hidden" id="ratingValue" value="0"><input type="hidden" id="rateRequestId"><input type="hidden" id="rateCaregiverId"><div class="mb-3"><textarea id="rateComment" class="form-control" rows="3"></textarea></div><button onclick="submitReview()" class="btn btn-dark w-100" data-i18n="publish">نشر</button></div></div></div></div>
+    <div class="modal fade" id="reviewsListModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"><div class="modal-content border-0 shadow"><div class="modal-header bg-light"><h5 class="modal-title" data-i18n="reviews">الآراء</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body" id="reviewsListBody"></div></div></div></div>
 
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const Toast = Swal.mixin({ toast: true, position: 'top-start', showConfirmButton: false, timer: 3000, timerProgressBar: true });
-
-        // --- DATABASE ---
-        const defaultAvatar = "https://cdn-icons-png.flaticon.com/512/4042/4042356.png";
-        
-        const initialUsers = [
-            { id: 'c1', name: 'سارة محمد', email: 'nounou@test.com', pass: '123', role: 'caregiver', phone: '0550112233', wilaya: 'الجزائر', service: 'حضانتة منزلية', hasCert: true, photo: defaultAvatar },
-            { id: 'c2', name: 'أمينة بن علي', email: 'amina@test.com', pass: '123', role: 'caregiver', phone: '0660445566', wilaya: 'وهران', service: 'أخصائية نطق', hasCert: true, photo: defaultAvatar },
-            { id: 'p1', name: 'أحمد الولي', email: 'parent@test.com', pass: '123', role: 'parent', phone: '0555000000', wilaya: 'الجزائر', photo: defaultAvatar }
+        // --- DATA CONSTANTS (58 Wilayas + New Services) ---
+        const wilayas = [
+            {id:1, ar:"أدرار", fr:"Adrar"}, {id:2, ar:"الشلف", fr:"Chlef"}, {id:3, ar:"الأغواط", fr:"Laghouat"}, {id:4, ar:"أم البواقي", fr:"Oum El Bouaghi"},
+            {id:5, ar:"باتنة", fr:"Batna"}, {id:6, ar:"بجاية", fr:"Béjaïa"}, {id:7, ar:"بسكرة", fr:"Biskra"}, {id:8, ar:"بشار", fr:"Béchar"},
+            {id:9, ar:"البليدة", fr:"Blida"}, {id:10, ar:"البويرة", fr:"Bouira"}, {id:11, ar:"تمنراست", fr:"Tamanrasset"}, {id:12, ar:"تبسة", fr:"Tébessa"},
+            {id:13, ar:"تلمسان", fr:"Tlemcen"}, {id:14, ar:"تيارت", fr:"Tiaret"}, {id:15, ar:"تيزي وزو", fr:"Tizi Ouzou"}, {id:16, ar:"الجزائر", fr:"Alger"},
+            {id:17, ar:"الجلفة", fr:"Djelfa"}, {id:18, ar:"جيجل", fr:"Jijel"}, {id:19, ar:"سطيف", fr:"Sétif"}, {id:20, ar:"سعيدة", fr:"Saïda"},
+            {id:21, ar:"سكيكدة", fr:"Skikda"}, {id:22, ar:"سيدي بلعباس", fr:"Sidi Bel Abbès"}, {id:23, ar:"عنابة", fr:"Annaba"}, {id:24, ar:"قالمة", fr:"Guelma"},
+            {id:25, ar:"قسنطينة", fr:"Constantine"}, {id:26, ar:"المدية", fr:"Médéa"}, {id:27, ar:"مستغانم", fr:"Mostaganem"}, {id:28, ar:"المسيلة", fr:"M'Sila"},
+            {id:29, ar:"معسكر", fr:"Mascara"}, {id:30, ar:"ورقلة", fr:"Ouargla"}, {id:31, ar:"وهران", fr:"Oran"}, {id:32, ar:"البيض", fr:"El Bayadh"},
+            {id:33, ar:"إليزي", fr:"Illizi"}, {id:34, ar:"برج بوعريريج", fr:"Bordj Bou Arreridj"}, {id:35, ar:"بومرداس", fr:"Boumerdès"}, {id:36, ar:"الطارف", fr:"El Tarf"},
+            {id:37, ar:"تندوف", fr:"Tindouf"}, {id:38, ar:"تيسمسيلت", fr:"Tissemsilt"}, {id:39, ar:"الوادي", fr:"El Oued"}, {id:40, ar:"خنشلة", fr:"Khenchela"},
+            {id:41, ar:"سوق أهراس", fr:"Souk Ahras"}, {id:42, ar:"تيبازة", fr:"Tipaza"}, {id:43, ar:"ميلة", fr:"Mila"}, {id:44, ar:"عين الدفلى", fr:"Aïn Defla"},
+            {id:45, ar:"النعامة", fr:"Naâma"}, {id:46, ar:"عين تموشنت", fr:"Aïn Témouchent"}, {id:47, ar:"غرداية", fr:"Ghardaïa"}, {id:48, ar:"غليزان", fr:"Relizane"},
+            {id:49, ar:"تيميمون", fr:"Timimoun"}, {id:50, ar:"برج باجي مختار", fr:"Bordj Badji Mokhtar"}, {id:51, ar:"أولاد جلال", fr:"Ouled Djellal"}, {id:52, ar:"بني عباس", fr:"Béni Abbès"},
+            {id:53, ar:"إن صالح", fr:"In Salah"}, {id:54, ar:"إن قزام", fr:"In Guezzam"}, {id:55, ar:"توقرت", fr:"Touggourt"}, {id:56, ar:"جانت", fr:"Djanet"},
+            {id:57, ar:"المغير", fr:"El M'Ghair"}, {id:58, ar:"المنيعة", fr:"El Meniaa"}
         ];
 
-        // Dummy Reviews
-        const initialReviews = [
-            { id: 'r1', caregiverId: 'c1', parentName: 'أحمد الولي', stars: 5, comment: 'ممتازة جداً وصبورة مع الأطفال', date: '2023-10-01' },
-            { id: 'r2', caregiverId: 'c1', parentName: 'مريم', stars: 4, comment: 'جيدة لكن بعيدة قليلاً', date: '2023-10-05' }
+        const services = [
+            {code: "srv_companion", ar: "مرافق", fr: "Accompagnateur"},
+            {code: "srv_lessons", ar: "دروس خصوصية", fr: "Cours particuliers"},
+            {code: "srv_nursery", ar: "حضانة منزلية", fr: "Garde à domicile"},
+            {code: "srv_psych", ar: "اخصائي نفساني", fr: "Psychologue"},
+            {code: "srv_speech", ar: "اخصائي نطق", fr: "Orthophoniste"}
+        ];
+
+        // --- TRANSLATION DICTIONARY ---
+        const translations = {
+            ar: {
+                app_name: "مرافق", slogan: "طفلك في أيادي آمنة", login: "دخول", register: "جديد", settings: "إعدادات", logout: "خروج",
+                email_placeholder: "البريد الإلكتروني", password_placeholder: "كلمة المرور", forgot_password: "نسيت كلمة المرور؟", login_btn: "تسجيل الدخول",
+                demo_accounts: "حسابات للتجربة:", role_parent: "ولي أمر", role_caregiver: "مرافقة", fullname: "الاسم الكامل", phone: "رقم الهاتف",
+                select_wilaya: "اختر الولاية", upload_cert: "رفع الشهادة (PDF)", create_account_btn: "إنشاء حساب",
+                search_title: "ابحث عن مرافقة", all_wilayas: "كل الولايات", all_services: "كل الخدمات", child_age: "عمر الطفل", search_btn: "بحث",
+                my_requests: "طلباتي السابقة", th_caregiver: "المرافقة", th_service: "الخدمة", th_status: "الحالة", th_action: "الإجراء",
+                edit: "تعديل", incoming_requests: "الطلبات الواردة", th_parent: "الولي", th_child: "الطفل", th_details: "التفاصيل", th_days: "الأيام",
+                admin_panel: "لوحة التحكم", stat_users: "المستخدمين", stat_caregivers: "المرافقات", stat_reports: "الشكاوى",
+                manage_users: "إدارة المستخدمين", search_placeholder: "بحث...", th_name: "الاسم", th_role: "النوع", 
+                reports_messages: "الشكاوى والرسائل", sender: "المرسل", type: "النوع", message: "الرسالة", date: "التاريخ",
+                about_us: "من نحن", privacy_policy: "سياسة الخصوصية", contact_us: "تواصل معنا", report_issue: "الإبلاغ عن مشكلة", copyright: "جميع الحقوق محفوظة © 2024",
+                about_text: "منصة جزائرية رقمية تهدف إلى ربط الأولياء بأفضل المرافقات والمربيات وأخصائيات النطق، لضمان راحة وسلامة أطفالكم.",
+                privacy_text: "نحن نحترم خصوصيتكم. جميع البيانات المدخلة محفوظة بشكل آمن.",
+                name: "الاسم", send: "إرسال", issue_details: "تفاصيل المشكلة", send_report: "إرسال البلاغ", recover_pass: "استرجاع كلمة المرور", recover_hint: "أدخل بريدك الإلكتروني.",
+                request_service: "تقديم طلب خدمة", child_name: "اسم الطفل", duration: "المدة", "1_month": "شهر", "3_months": "3 أشهر", "1_year": "سنة", days: "الأيام المفضلة", confirm_send: "تأكيد وإرسال",
+                edit_profile: "تعديل البروفايل", wilaya: "الولاية", change_pass: "تغيير كلمة المرور", pro_info: "معلومات مهنية", save: "حفظ التغييرات",
+                rate_caregiver: "تقييم المرافقة", publish: "نشر", reviews: "الآراء",
+                status_pending: "انتظار", status_accepted: "مقبول", status_rejected: "مرفوض", new: "جديد",
+                role_admin: "مسؤول", role_parent_label: "ولي", role_caregiver_label: "مرافقة", active: "نشط", banned: "محظور", ban: "حظر", unban: "فك الحظر",
+                alert_success: "نجاح", alert_error: "خطأ", alert_sent: "تم الإرسال",
+                stat_total_req: "الكل", stat_new_req: "جديد", stat_accepted: "مقبولة", stat_rejected: "مرفوضة",
+                status_online: "أنا في الخدمة", status_offline: "خارج الخدمة",
+                daily_transactions: "التعاملات اليومية", successful_caregivers: "أنجح المرافقات"
+            },
+            fr: {
+                app_name: "Morafik", slogan: "Votre enfant entre de bonnes mains", login: "Connexion", register: "Nouveau", settings: "Paramètres", logout: "Déconnexion",
+                email_placeholder: "Adresse email", password_placeholder: "Mot de passe", forgot_password: "Mot de passe oublié ?", login_btn: "Se connecter",
+                demo_accounts: "Comptes démo:", role_parent: "Parent", role_caregiver: "Nounou", fullname: "Nom complet", phone: "Téléphone",
+                select_wilaya: "Choisir Wilaya", upload_cert: "Diplôme (PDF)", create_account_btn: "Créer compte",
+                search_title: "Trouver une nounou", all_wilayas: "Toutes Wilayas", all_services: "Tous Services", child_age: "Âge enfant", search_btn: "Rechercher",
+                my_requests: "Mes demandes", th_caregiver: "Nounou", th_service: "Service", th_status: "Statut", th_action: "Action",
+                edit: "Modifier", incoming_requests: "Demandes reçues", th_parent: "Parent", th_child: "Enfant", th_details: "Détails", th_days: "Jours",
+                admin_panel: "Panneau Admin", stat_users: "Utilisateurs", stat_caregivers: "Nounous", stat_reports: "Signalements",
+                manage_users: "Gérer utilisateurs", search_placeholder: "Rechercher...", th_name: "Nom", th_role: "Rôle",
+                reports_messages: "Signalements & Messages", sender: "Expéditeur", type: "Type", message: "Message", date: "Date",
+                about_us: "À propos", privacy_policy: "Confidentialité", contact_us: "Contactez-nous", report_issue: "Signaler problème", copyright: "Tous droits réservés © 2024",
+                about_text: "Plateforme numérique algérienne reliant les parents aux meilleures nounous et orthophonistes pour assurer la sécurité de vos enfants.",
+                privacy_text: "Nous respectons votre vie privée. Toutes les données saisies sont stockées en toute sécurité.",
+                name: "Nom", send: "Envoyer", issue_details: "Détails du problème", send_report: "Envoyer signalement", recover_pass: "Récupérer mot de passe", recover_hint: "Entrez votre email.",
+                request_service: "Demander service", child_name: "Nom de l'enfant", duration: "Durée", "1_month": "1 mois", "3_months": "3 mois", "1_year": "1 an", days: "Jours préférés", confirm_send: "Confirmer",
+                edit_profile: "Modifier profil", wilaya: "Wilaya", change_pass: "Changer mot de passe", pro_info: "Infos pro", save: "Enregistrer",
+                rate_caregiver: "Noter la nounou", publish: "Publier", reviews: "Avis",
+                status_pending: "En attente", status_accepted: "Accepté", status_rejected: "Refusé", new: "Nouveau",
+                role_admin: "Admin", role_parent_label: "Parent", role_caregiver_label: "Nounou", active: "Actif", banned: "Banni", ban: "Bannir", unban: "Débannir",
+                alert_success: "Succès", alert_error: "Erreur", alert_sent: "Envoyé",
+                stat_total_req: "Total", stat_new_req: "Nouveau", stat_accepted: "Accepté", stat_rejected: "Refusé",
+                status_online: "En Service", status_offline: "Hors Service",
+                daily_transactions: "Transactions du Jour", successful_caregivers: "Top Nounous"
+            }
+        };
+
+        // Populate translations with dynamic lists (Wilayas & Services)
+        wilayas.forEach(w => {
+            translations.ar[`w_${w.id}`] = w.ar;
+            translations.fr[`w_${w.id}`] = w.fr;
+        });
+        services.forEach(s => {
+            translations.ar[s.code] = s.ar;
+            translations.fr[s.code] = s.fr;
+        });
+
+        let currentLang = 'ar';
+        function t(key) { return translations[currentLang][key] || key; }
+
+        function populateDropdowns() {
+            // Populate Wilayas
+            const wSelects = document.querySelectorAll('.dynamic-wilaya');
+            wSelects.forEach(sel => {
+                const isSearch = sel.id === 'searchWilaya';
+                let html = isSearch ? `<option value="الكل" data-i18n="all_wilayas">${t('all_wilayas')}</option>` : `<option value="" disabled selected data-i18n="select_wilaya">${t('select_wilaya')}</option>`;
+                wilayas.forEach(w => {
+                    html += `<option value="${w.ar}" data-i18n="w_${w.id}">${currentLang === 'ar' ? w.ar : w.fr}</option>`;
+                });
+                sel.innerHTML = html;
+            });
+
+            // Populate Services
+            const sSelects = document.querySelectorAll('.dynamic-service');
+            sSelects.forEach(sel => {
+                const isSearch = sel.id === 'searchService';
+                let html = isSearch ? `<option value="الكل" data-i18n="all_services">${t('all_services')}</option>` : '';
+                services.forEach(s => {
+                    html += `<option value="${s.ar}" data-i18n="${s.code}">${currentLang === 'ar' ? s.ar : s.fr}</option>`;
+                });
+                sel.innerHTML = html;
+            });
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'fr' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('langSwitcher').innerText = currentLang === 'ar' ? 'FR' : 'AR';
+            
+            // Text Content
+            document.querySelectorAll('[data-i18n]').forEach(el => el.innerText = t(el.getAttribute('data-i18n')));
+            // Placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => el.placeholder = t(el.getAttribute('data-i18n-placeholder')));
+            
+            // Update Options Text (keeping value)
+            document.querySelectorAll('option').forEach(opt => {
+                const key = opt.getAttribute('data-i18n');
+                if(key) opt.innerText = t(key);
+            });
+
+            if(currentUser) {
+                if(currentUser.role === 'parent') { performSearch(); loadMyRequests(); }
+                else if(currentUser.role === 'caregiver') { loadCaregiverDashboard(); }
+                else if(currentUser.role === 'admin') { loadAdminDashboard(); }
+            }
+        }
+
+        const Toast = Swal.mixin({ toast: true, position: 'top-start', showConfirmButton: false, timer: 3000 });
+        const defaultAvatar = "https://cdn-icons-png.flaticon.com/512/4042/4042356.png";
+        
+        // --- DATA ---
+        const initialUsers = [
+            { id: 'c1', name: 'سارة محمد', email: 'nounou@test.com', pass: '123', role: 'caregiver', phone: '0550112233', wilaya: 'الجزائر', service: 'حضانة منزلية', hasCert: true, photo: defaultAvatar, isBanned: false, isAvailable: true, createdAt: '2023-10-01' },
+            { id: 'p1', name: 'أحمد الولي', email: 'parent@test.com', pass: '123', role: 'parent', phone: '0555000000', wilaya: 'الجزائر', photo: defaultAvatar, isBanned: false, createdAt: '2024-01-20' }
         ];
 
         if (!localStorage.getItem('users')) localStorage.setItem('users', JSON.stringify(initialUsers));
         if (!localStorage.getItem('requests')) localStorage.setItem('requests', JSON.stringify([]));
-        if (!localStorage.getItem('reviews')) localStorage.setItem('reviews', JSON.stringify(initialReviews));
+        if (!localStorage.getItem('reviews')) localStorage.setItem('reviews', JSON.stringify([]));
+        if (!localStorage.getItem('reports')) localStorage.setItem('reports', JSON.stringify([]));
 
         const DB = {
             getUsers: () => JSON.parse(localStorage.getItem('users')),
             saveUser: (user) => { const u = DB.getUsers(); u.push(user); localStorage.setItem('users', JSON.stringify(u)); },
-            updateUser: (updatedUser) => {
-                const users = DB.getUsers(); const idx = users.findIndex(u => u.id === updatedUser.id);
-                if(idx !== -1) { users[idx] = updatedUser; localStorage.setItem('users', JSON.stringify(users)); return true; }
-                return false;
-            },
+            saveAllUsers: (users) => { localStorage.setItem('users', JSON.stringify(users)); },
+            updateUser: (updatedUser) => { const users = DB.getUsers(); const idx = users.findIndex(u => u.id === updatedUser.id); if(idx !== -1) { users[idx] = updatedUser; localStorage.setItem('users', JSON.stringify(users)); return true; } return false; },
             getRequests: () => JSON.parse(localStorage.getItem('requests')),
             saveRequest: (req) => { const r = DB.getRequests(); r.push(req); localStorage.setItem('requests', JSON.stringify(r)); },
-            updateRequestStatus: (reqId, status) => {
-                const r = DB.getRequests(); const idx = r.findIndex(x => x.id == reqId);
-                if (idx !== -1) { r[idx].status = status; localStorage.setItem('requests', JSON.stringify(r)); }
-            },
+            updateRequestStatus: (reqId, status) => { const r = DB.getRequests(); const idx = r.findIndex(x => x.id == reqId); if (idx !== -1) { r[idx].status = status; localStorage.setItem('requests', JSON.stringify(r)); } },
             getReviews: () => JSON.parse(localStorage.getItem('reviews')),
-            saveReview: (review) => { const r = DB.getReviews(); r.push(review); localStorage.setItem('reviews', JSON.stringify(r)); }
+            saveReview: (review) => { const r = DB.getReviews(); r.push(review); localStorage.setItem('reviews', JSON.stringify(r)); },
+            getReports: () => JSON.parse(localStorage.getItem('reports')),
+            saveReport: (rep) => { const r = DB.getReports(); r.push(rep); localStorage.setItem('reports', JSON.stringify(r)); }
         };
 
         let currentUser = null;
 
-        // --- AUTH & NAV ---
-        function switchView(viewId) { document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active')); document.getElementById(viewId).classList.add('active'); }
-        window.selectRole = (role, elem) => {
-            document.querySelectorAll('.role-selector').forEach(el => el.classList.remove('active')); elem.classList.add('active');
-            document.getElementById('regRole').value = role;
-            role === 'caregiver' ? document.getElementById('caregiverFields').classList.remove('d-none') : document.getElementById('caregiverFields').classList.add('d-none');
-        };
+        // --- CORE FUNCTIONS ---
+        function switchView(viewId) { document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active')); document.getElementById(viewId).classList.add('active'); window.scrollTo(0,0); }
+        function openModal(id) { new bootstrap.Modal(document.getElementById(id)).show(); }
+        window.selectRole = (role, elem) => { document.querySelectorAll('.role-selector').forEach(el => el.classList.remove('active')); elem.classList.add('active'); document.getElementById('regRole').value = role; role === 'caregiver' ? document.getElementById('caregiverFields').classList.remove('d-none') : document.getElementById('caregiverFields').classList.add('d-none'); };
+        function logout() { currentUser = null; switchView('authView'); document.getElementById('logoutBtn').classList.add('d-none'); document.getElementById('editProfileBtn').classList.add('d-none'); document.getElementById('userInfo').innerText = ''; document.getElementById('loginForm').reset(); }
 
-        function logout() {
-            currentUser = null; switchView('authView');
-            document.getElementById('logoutBtn').classList.add('d-none'); document.getElementById('editProfileBtn').classList.add('d-none');
-            document.getElementById('userInfo').innerText = ''; document.getElementById('loginForm').reset();
-        }
-
+        // --- AUTH ---
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value; const pass = document.getElementById('loginPass').value;
+            if(email === 'admin' && pass === 'abobob123') { currentUser = { name: 'Admin', role: 'admin' }; document.getElementById('logoutBtn').classList.remove('d-none'); document.getElementById('userInfo').innerText = t('role_admin'); loadAdminDashboard(); switchView('adminView'); return; }
             const user = DB.getUsers().find(u => u.email === email && u.pass === pass);
-            if (user) { currentUser = user; initSession(); } else { Toast.fire({ icon: 'error', title: 'بيانات غير صحيحة' }); }
+            if (user) { 
+                if(user.isBanned) { Swal.fire({ icon: 'error', title: t('banned') }); return; }
+                currentUser = user; document.getElementById('logoutBtn').classList.remove('d-none'); document.getElementById('editProfileBtn').classList.remove('d-none'); document.getElementById('userInfo').innerText = user.name;
+                user.role === 'parent' ? (switchView('parentView'), performSearch(), loadMyRequests()) : (switchView('caregiverView'), loadCaregiverDashboard());
+            } else { Toast.fire({ icon: 'error', title: t('alert_error') }); }
         });
-
-        function initSession() {
-            document.getElementById('logoutBtn').classList.remove('d-none'); document.getElementById('editProfileBtn').classList.remove('d-none');
-            document.getElementById('userInfo').innerText = currentUser.name; Toast.fire({ icon: 'success', title: `مرحباً ${currentUser.name}` });
-            if (currentUser.role === 'parent') { switchView('parentView'); performSearch(); loadMyRequests(); } 
-            else { switchView('caregiverView'); loadCaregiverDashboard(); }
-        }
 
         document.getElementById('registerForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const role = document.getElementById('regRole').value;
-            const newUser = {
-                id: 'u' + Date.now(), name: document.getElementById('regName').value, email: document.getElementById('regEmail').value,
-                phone: document.getElementById('regPhone').value, pass: document.getElementById('regPass').value, role: role,
-                wilaya: document.getElementById('regWilaya').value, photo: defaultAvatar, createdAt: new Date().toISOString()
-            };
-            if (role === 'caregiver') {
-                newUser.service = document.getElementById('regService').value; newUser.hasCert = true; newUser.certName = document.getElementById('regCert').files[0]?.name || "وثيقة";
-            }
-            DB.saveUser(newUser); Toast.fire({ icon: 'success', title: 'تم إنشاء الحساب' });
+            const newUser = { id: 'u' + Date.now(), name: document.getElementById('regName').value, email: document.getElementById('regEmail').value, phone: document.getElementById('regPhone').value, pass: document.getElementById('regPass').value, role: role, wilaya: document.getElementById('regWilaya').value, photo: defaultAvatar, isBanned: false, isAvailable: true, createdAt: new Date().toISOString().split('T')[0] };
+            if (role === 'caregiver') { newUser.service = document.getElementById('regService').value; newUser.hasCert = true; }
+            DB.saveUser(newUser); Toast.fire({ icon: 'success', title: t('alert_success') });
             document.querySelector('[data-bs-target="#login-content"]').click(); document.getElementById('registerForm').reset();
         });
 
-        // --- PARENT SEARCH & RATING LOGIC ---
-        function getRatingInfo(caregiverId) {
-            const reviews = DB.getReviews().filter(r => r.caregiverId === caregiverId);
-            if(reviews.length === 0) return { avg: 0, count: 0, html: '<small class="text-muted">جديد</small>' };
-            const avg = (reviews.reduce((a,b)=>a+b.stars, 0) / reviews.length).toFixed(1);
-            let starsHtml = '';
-            for(let i=1; i<=5; i++) starsHtml += i <= Math.round(avg) ? '<i class="bi bi-star-fill text-warning"></i>' : '<i class="bi bi-star text-muted"></i>';
-            return { avg: avg, count: reviews.length, html: `<div class="small-stars" style="cursor:pointer" onclick="showReviews('${caregiverId}')">${starsHtml} <span class="text-dark small">(${avg})</span></div>` };
-        }
+        // --- FORGOT PASS / REPORT ---
+        function openForgotPassModal() { new bootstrap.Modal(document.getElementById('forgotPassModal')).show(); }
+        function handleForgotPass() { bootstrap.Modal.getInstance(document.getElementById('forgotPassModal')).hide(); Swal.fire({ icon: 'info', title: t('alert_sent'), text: 'Check Admin Panel' }); }
+        function submitReport(e, type) { e.preventDefault(); DB.saveReport({ sender: currentUser ? currentUser.name : 'Visitor', type, message: e.target.querySelector('textarea').value, date: new Date().toLocaleDateString() }); bootstrap.Modal.getInstance(e.target.closest('.modal')).hide(); e.target.reset(); Swal.fire({ icon: 'success', title: t('alert_sent') }); }
 
+        // --- PARENT ---
         function performSearch() {
             const wilaya = document.getElementById('searchWilaya').value; const service = document.getElementById('searchService').value;
-            const caregivers = DB.getUsers().filter(u => u.role === 'caregiver');
-            const filtered = caregivers.filter(c => (wilaya === 'الكل' || c.wilaya === wilaya) && (service === 'الكل' || c.service === service));
             const container = document.getElementById('resultsArea'); container.innerHTML = '';
-
-            if (filtered.length === 0) { container.innerHTML = '<div class="col-12 text-center text-muted py-4">لا توجد نتائج مطابقة</div>'; return; }
-
+            const filtered = DB.getUsers().filter(u => u.role === 'caregiver' && !u.isBanned && u.isAvailable === true && (wilaya === 'الكل' || u.wilaya === wilaya) && (service === 'الكل' || u.service === service));
+            
+            if (filtered.length === 0) { container.innerHTML = `<div class="col-12 text-center text-muted py-4">${t('status_pending')}...</div>`; return; }
             filtered.forEach(c => {
-                const rating = getRatingInfo(c.id);
-                container.innerHTML += `
-                    <div class="col-md-6 col-lg-4">
-                        <div class="custom-card p-3 h-100 d-flex flex-column text-center">
-                            <div class="mx-auto mb-2 position-relative">
-                                <img src="${c.photo}" class="profile-img-preview" style="width:80px;height:80px;border:none;">
-                                ${c.hasCert ? '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success"><i class="bi bi-check-lg"></i></span>' : ''}
-                            </div>
-                            <h5 class="fw-bold text-dark mb-1">${c.name}</h5>
-                            <div class="mb-2">${rating.html} <small class="text-primary text-decoration-underline" style="cursor:pointer" onclick="showReviews('${c.id}')">${rating.count} تقييم</small></div>
-                            <div class="mb-3">
-                                <span class="badge bg-light text-dark border">${c.service}</span>
-                                <span class="badge bg-light text-dark border">${c.wilaya}</span>
-                            </div>
-                            <button class="btn btn-outline-primary fw-bold mt-auto w-100" onclick="openRequestModal('${c.id}')">
-                                <i class="bi bi-send-fill"></i> تقديم طلب
-                            </button>
-                        </div>
-                    </div>
-                `;
+                const reviews = DB.getReviews().filter(r => r.caregiverId === c.id);
+                const avg = reviews.length ? (reviews.reduce((a,b)=>a+b.stars,0)/reviews.length).toFixed(1) : 0;
+                let stars = ''; for(let i=1;i<=5;i++) stars += i<=Math.round(avg)?'<i class="bi bi-star-fill text-warning"></i>':'<i class="bi bi-star text-muted"></i>';
+                
+                // Lookup Display Values
+                const displayService = services.find(s=>s.ar === c.service);
+                const displayWilaya = wilayas.find(w=>w.ar === c.wilaya);
+                const sText = displayService ? (currentLang==='ar'?displayService.ar:displayService.fr) : c.service;
+                const wText = displayWilaya ? (currentLang==='ar'?displayWilaya.ar:displayWilaya.fr) : c.wilaya;
+
+                container.innerHTML += `<div class="col-md-6 col-lg-4"><div class="custom-card p-3 h-100 text-center"><img src="${c.photo}" class="profile-img-preview mx-auto mb-2"><h5 class="fw-bold mb-1">${c.name}</h5><div class="mb-2" onclick="showReviews('${c.id}')" style="cursor:pointer">${stars} <span class="small">(${avg})</span></div><p class="small text-muted mb-2">${sText} | ${wText}</p><button class="btn btn-outline-primary w-100 fw-bold mt-auto" onclick="openRequestModal('${c.id}')">${t('request_service')}</button></div></div>`;
+            });
+        }
+        window.openRequestModal = (id) => { document.getElementById('targetCaregiverId').value = id; new bootstrap.Modal(document.getElementById('requestModal')).show(); };
+        document.getElementById('sendRequestForm').addEventListener('submit', (e) => { e.preventDefault(); DB.saveRequest({ id: Date.now(), parentId: currentUser.id, parentName: currentUser.name, parentPhone: currentUser.phone, caregiverId: document.getElementById('targetCaregiverId').value, childName: document.getElementById('reqChildName').value, childAge: document.getElementById('reqChildAge').value, serviceType: 'Service', days: document.getElementById('reqDays').value, duration: document.getElementById('reqDuration').value, status: 'pending', isRated: false }); bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide(); Swal.fire({ icon: 'success', title: t('alert_sent') }); loadMyRequests(); });
+        function loadMyRequests() {
+            const tbody = document.getElementById('myRequestsTable'); tbody.innerHTML = '';
+            DB.getRequests().filter(r => r.parentId === currentUser.id).forEach(r => {
+                const cg = DB.getUsers().find(u => u.id === r.caregiverId) || {name: '?'};
+                let status = r.status === 'pending' ? `<span class="badge bg-warning text-dark">${t('status_pending')}</span>` : r.status === 'accepted' ? `<span class="badge bg-success">${t('status_accepted')}</span>` : `<span class="badge bg-danger">${t('status_rejected')}</span>`;
+                let action = r.status === 'accepted' ? `<a href="tel:${cg.phone}" class="btn btn-sm btn-success rounded-pill"><i class="bi bi-phone"></i></a>` : '-';
+                if(r.status === 'accepted' && !r.isRated) action += ` <button class="btn btn-sm btn-warning rounded-pill" onclick="openRateModal('${r.id}','${cg.id}','${cg.name}')"><i class="bi bi-star"></i></button>`;
+                tbody.innerHTML += `<tr><td data-label="${t('th_caregiver')}">${cg.name}</td><td data-label="${t('th_service')}">${r.childName}</td><td data-label="${t('th_status')}">${status}</td><td data-label="${t('th_action')}">${action}</td></tr>`;
             });
         }
 
-        window.showReviews = (caregiverId) => {
-            const reviews = DB.getReviews().filter(r => r.caregiverId === caregiverId);
-            const body = document.getElementById('reviewsListBody'); body.innerHTML = '';
-            if(reviews.length === 0) { body.innerHTML = '<p class="text-center text-muted">لا توجد تقييمات بعد.</p>'; } 
-            else {
-                reviews.forEach(r => {
-                    let s = ''; for(let i=1;i<=5;i++) s += i<=r.stars ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>';
-                    body.innerHTML += `
-                        <div class="review-card">
-                            <div class="d-flex justify-content-between">
-                                <strong class="small">${r.parentName}</strong>
-                                <div class="small-stars">${s}</div>
-                            </div>
-                            <p class="mb-0 small text-muted mt-1">${r.comment}</p>
-                        </div>
-                    `;
-                });
-            }
+        // --- CAREGIVER DASHBOARD & STATS ---
+        function loadCaregiverDashboard() {
+            document.getElementById('dashboardProfileImg').src = currentUser.photo; document.getElementById('cgNameProfile').innerText = currentUser.name;
+            document.getElementById('cgWilayaProfile').innerText = currentUser.wilaya; document.getElementById('cgServiceProfile').innerText = currentUser.service;
+            const toggle = document.getElementById('availabilityToggle'); const label = document.getElementById('availabilityLabel'); toggle.checked = currentUser.isAvailable !== false;
+            label.innerText = toggle.checked ? t('status_online') : t('status_offline'); label.className = toggle.checked ? 'form-check-label fw-bold small text-success' : 'form-check-label fw-bold small text-danger';
+            const reqs = DB.getRequests().filter(r => r.caregiverId === currentUser.id);
+            document.getElementById('cgStatTotal').innerText = reqs.length; document.getElementById('cgStatPending').innerText = reqs.filter(r => r.status === 'pending').length; document.getElementById('cgStatAccepted').innerText = reqs.filter(r => r.status === 'accepted').length; document.getElementById('cgStatRejected').innerText = reqs.filter(r => r.status === 'rejected').length;
+            const tbody = document.getElementById('incomingRequestsTable'); tbody.innerHTML = '';
+            reqs.forEach(r => {
+                let action = r.status === 'pending' ? `<button class="btn btn-sm btn-success" onclick="handleReq(${r.id},'accepted')">✔</button> <button class="btn btn-sm btn-danger" onclick="handleReq(${r.id},'rejected')">✘</button>` : (r.status === 'accepted' ? t('status_accepted') : t('status_rejected'));
+                let pInfo = r.status === 'accepted' ? `${r.parentName}<br><a href="tel:${r.parentPhone}" class="small">${r.parentPhone}</a>` : r.parentName;
+                tbody.innerHTML += `<tr><td data-label="${t('th_parent')}">${pInfo}</td><td data-label="${t('th_child')}">${r.childName}</td><td data-label="${t('th_details')}">${r.duration}</td><td data-label="${t('th_days')}">${r.days}</td><td data-label="${t('th_action')}">${action}</td></tr>`;
+            });
+        }
+        function toggleAvailability() { const toggle = document.getElementById('availabilityToggle'); currentUser.isAvailable = toggle.checked; DB.updateUser(currentUser); loadCaregiverDashboard(); }
+        window.handleReq = (id, s) => { DB.updateRequestStatus(id, s); loadCaregiverDashboard(); };
+
+        // --- REVIEWS ---
+        window.showReviews = (cid) => {
+            const body = document.getElementById('reviewsListBody'); body.innerHTML = ''; const revs = DB.getReviews().filter(r => r.caregiverId === cid);
+            if(!revs.length) body.innerHTML = t('new');
+            revs.forEach(r => body.innerHTML += `<div class="review-card"><strong>${r.parentName}</strong> (${r.stars}★)<p class="mb-0 small">${r.comment}</p></div>`);
             new bootstrap.Modal(document.getElementById('reviewsListModal')).show();
         };
-
-        window.openRequestModal = (id) => { document.getElementById('targetCaregiverId').value = id; new bootstrap.Modal(document.getElementById('requestModal')).show(); };
-
-        document.getElementById('sendRequestForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const req = {
-                id: Date.now(), parentId: currentUser.id, parentName: currentUser.name, parentPhone: currentUser.phone,
-                caregiverId: document.getElementById('targetCaregiverId').value, childName: document.getElementById('reqChildName').value,
-                childAge: document.getElementById('reqChildAge').value, serviceType: 'خدمة', days: document.getElementById('reqDays').value,
-                duration: document.getElementById('reqDuration').value, status: 'pending', isRated: false
-            };
-            DB.saveRequest(req); bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide();
-            Swal.fire({ icon: 'success', title: 'تم إرسال الطلب!', confirmButtonColor: '#10b981' }); loadMyRequests();
-            document.getElementById('sendRequestForm').reset();
-        });
-
-        function loadMyRequests() {
-            const reqs = DB.getRequests().filter(r => r.parentId === currentUser.id);
-            const tbody = document.getElementById('myRequestsTable'); tbody.innerHTML = '';
-            const users = DB.getUsers();
-
-            reqs.forEach(r => {
-                const cg = users.find(u => u.id === r.caregiverId) || {name: 'غير معروف', photo: defaultAvatar};
-                let statusHtml = r.status === 'pending' ? '<span class="status-badge bg-pending">انتظار</span>' :
-                                 r.status === 'accepted' ? '<span class="status-badge bg-accepted">مقبول</span>' : '<span class="status-badge bg-rejected">مرفوض</span>';
-                
-                let actionHtml = '';
-                if(r.status === 'accepted') {
-                     actionHtml = `<a href="tel:${cg.phone}" class="btn btn-sm btn-success rounded-pill mb-1"><i class="bi bi-telephone"></i> اتصال</a>`;
-                     if(!r.isRated) {
-                         actionHtml += ` <button class="btn btn-sm btn-warning rounded-pill" onclick="openRateModal('${r.id}', '${cg.id}', '${cg.name}')"><i class="bi bi-star"></i> قيم الآن</button>`;
-                     } else {
-                         actionHtml += ` <span class="badge bg-light text-warning border"><i class="bi bi-check-all"></i> تم التقييم</span>`;
-                     }
-                } else {
-                    actionHtml = '<span class="text-muted small">--</span>';
-                }
-
-                tbody.innerHTML += `
-                    <tr>
-                        <td data-label="المرافقة"><img src="${cg.photo}" width="30" class="rounded-circle me-1"> ${cg.name}</td>
-                        <td data-label="الخدمة">${r.childName} (${r.duration})</td>
-                        <td data-label="الحالة">${statusHtml}</td>
-                        <td data-label="الإجراء">${actionHtml}</td>
-                    </tr>
-                `;
-            });
-        }
-
-        // --- RATING FUNCTIONALITY ---
-        // Star clicking logic
-        document.querySelectorAll('#starContainer i').forEach(star => {
-            star.addEventListener('click', function() {
-                const val = this.getAttribute('data-val');
-                document.getElementById('ratingValue').value = val;
-                document.querySelectorAll('#starContainer i').forEach(s => {
-                    s.classList.remove('active', 'text-warning'); s.classList.add('text-muted'); // reset
-                    if(s.getAttribute('data-val') <= val) { s.classList.add('active', 'text-warning'); s.classList.remove('text-muted'); }
-                });
-            });
-        });
-
-        window.openRateModal = (reqId, cgId, cgName) => {
-            document.getElementById('rateRequestId').value = reqId;
-            document.getElementById('rateCaregiverId').value = cgId;
-            document.getElementById('rateCgName').innerText = `تقييم المرافقة: ${cgName}`;
-            // Reset form
-            document.getElementById('ratingValue').value = 0;
-            document.getElementById('rateComment').value = '';
-            document.querySelectorAll('#starContainer i').forEach(s => { s.classList.remove('active', 'text-warning'); s.classList.add('text-muted'); });
-            new bootstrap.Modal(document.getElementById('rateModal')).show();
-        };
-
+        window.openRateModal = (rid, cid, name) => { document.getElementById('rateRequestId').value = rid; document.getElementById('rateCaregiverId').value = cid; document.getElementById('rateCgName').innerText = name; new bootstrap.Modal(document.getElementById('rateModal')).show(); };
         window.submitReview = () => {
-            const val = document.getElementById('ratingValue').value;
-            const comment = document.getElementById('rateComment').value;
-            const cgId = document.getElementById('rateCaregiverId').value;
-            const reqId = document.getElementById('rateRequestId').value;
-
-            if(val == 0) { Toast.fire({ icon: 'warning', title: 'يرجى اختيار عدد النجوم' }); return; }
-
-            const review = {
-                id: Date.now(), caregiverId: cgId, parentName: currentUser.name, stars: parseInt(val), comment: comment, date: new Date().toISOString()
-            };
-            
-            DB.saveReview(review);
-            
-            // Mark request as rated
-            const reqs = DB.getRequests();
-            const idx = reqs.findIndex(r => r.id == reqId);
-            if(idx !== -1) { reqs[idx].isRated = true; localStorage.setItem('requests', JSON.stringify(reqs)); }
-
-            bootstrap.Modal.getInstance(document.getElementById('rateModal')).hide();
-            Swal.fire({ icon: 'success', title: 'شكراً لتقييمك!' });
-            loadMyRequests();
+            const rid = document.getElementById('rateRequestId').value; DB.saveReview({ id: Date.now(), caregiverId: document.getElementById('rateCaregiverId').value, parentName: currentUser.name, stars: document.getElementById('ratingValue').value, comment: document.getElementById('rateComment').value });
+            const rs = DB.getRequests(); rs.find(r=>r.id==rid).isRated = true; localStorage.setItem('requests', JSON.stringify(rs));
+            bootstrap.Modal.getInstance(document.getElementById('rateModal')).hide(); Swal.fire({ icon: 'success' }); loadMyRequests();
         };
+        document.querySelectorAll('#starContainer i').forEach(star => star.addEventListener('click', function(){ const v = this.getAttribute('data-val'); document.getElementById('ratingValue').value = v; document.querySelectorAll('#starContainer i').forEach(s => s.classList.toggle('text-warning', s.getAttribute('data-val')<=v)); }));
 
-        // --- CAREGIVER DASHBOARD ---
-        function loadCaregiverDashboard() {
-            document.getElementById('dashboardProfileImg').src = currentUser.photo;
-            document.getElementById('cgNameProfile').innerText = currentUser.name;
-            document.getElementById('cgWilayaProfile').innerText = currentUser.wilaya;
-            document.getElementById('cgServiceProfile').innerText = currentUser.service;
+        // --- ADMIN ---
+        function loadAdminDashboard() {
+            const users = DB.getUsers(); 
+            const reports = DB.getReports();
             
-            // Show Rating
-            const rating = getRatingInfo(currentUser.id);
-            document.getElementById('cgRatingProfile').innerHTML = rating.html;
-
-            const reqs = DB.getRequests().filter(r => r.caregiverId === currentUser.id);
-            const tbody = document.getElementById('incomingRequestsTable'); tbody.innerHTML = '';
-
-            if (reqs.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">لا توجد طلبات جديدة</td></tr>'; return; }
-
-            reqs.forEach(r => {
-                let actions = '';
-                if(r.status === 'pending') {
-                    actions = `<button class="btn btn-sm btn-success rounded-pill me-1" onclick="handleReq(${r.id}, 'accepted')"><i class="bi bi-check-lg"></i></button>
-                               <button class="btn btn-sm btn-danger rounded-pill" onclick="handleReq(${r.id}, 'rejected')"><i class="bi bi-x-lg"></i></button>`;
-                } else if (r.status === 'accepted') { actions = '<span class="text-success small fw-bold">مقبول</span>'; } 
-                else { actions = '<span class="text-danger small fw-bold">مرفوض</span>'; }
-
-                let parentInfo = r.parentName;
-                if(r.status === 'accepted') parentInfo += `<div class="mt-1"><a href="tel:${r.parentPhone}" class="badge bg-success text-decoration-none"><i class="bi bi-telephone"></i> ${r.parentPhone}</a></div>`;
-
-                tbody.innerHTML += `
-                    <tr>
-                        <td data-label="الولي">${parentInfo}</td>
-                        <td data-label="الطفل">${r.childName} (${r.childAge} سنة)</td>
-                        <td data-label="التفاصيل" class="small text-muted">${r.duration}</td>
-                        <td data-label="الأيام">${r.days}</td>
-                        <td data-label="الإجراء">${actions}</td>
-                    </tr>
-                `;
+            // Basic Stats
+            document.getElementById('statTotalUsers').innerText = users.length; 
+            document.getElementById('statCaregivers').innerText = users.filter(u=>u.role==='caregiver').length; 
+            document.getElementById('statReportsCount').innerText = reports.length;
+            
+            // --- NEW: Daily Transactions (Last 10 Requests) ---
+            const allReqs = DB.getRequests().sort((a,b) => b.id - a.id).slice(0, 10);
+            const transTable = document.getElementById('adminDailyTrans');
+            transTable.innerHTML = '';
+            if(allReqs.length === 0) transTable.innerHTML = '<tr><td colspan="3" class="text-center text-muted small">No data</td></tr>';
+            
+            allReqs.forEach(r => {
+                const cg = users.find(u => u.id === r.caregiverId) || {name: 'Unknown'};
+                let statusBadge = r.status === 'accepted' ? '<span class="badge bg-success">✔</span>' : 
+                                  (r.status === 'rejected' ? '<span class="badge bg-danger">✘</span>' : '<span class="badge bg-warning">⏳</span>');
+                transTable.innerHTML += `<tr><td><span class="small fw-bold">${r.parentName}</span></td><td><span class="small">${cg.name}</span></td><td>${statusBadge}</td></tr>`;
             });
+
+            // --- NEW: Successful Caregivers ---
+            const successCounts = {};
+            DB.getRequests().filter(r => r.status === 'accepted').forEach(r => {
+                successCounts[r.caregiverId] = (successCounts[r.caregiverId] || 0) + 1;
+            });
+            
+            const topCgs = Object.keys(successCounts).map(id => {
+                const user = users.find(u => u.id === id);
+                return user ? { ...user, count: successCounts[id] } : null;
+            }).filter(u => u).sort((a, b) => b.count - a.count).slice(0, 5);
+
+            const topTable = document.getElementById('adminTopCaregivers');
+            topTable.innerHTML = '';
+            if(topCgs.length === 0) topTable.innerHTML = '<tr><td class="text-muted small">No data</td></tr>';
+
+            topCgs.forEach((c, index) => {
+                let medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : ''));
+                topTable.innerHTML += `
+                    <tr class="border-bottom">
+                        <td style="width:50px"><img src="${c.photo}" class="rounded-circle" width="40" height="40"></td>
+                        <td><div class="fw-bold small">${c.name} ${medal}</div><div class="text-muted" style="font-size:0.75rem">${c.service}</div></td>
+                        <td class="text-end"><span class="badge bg-primary rounded-pill">${c.count} <i class="bi bi-check-circle"></i></span></td>
+                    </tr>`;
+            });
+
+            // Users Table
+            const search = document.getElementById('adminSearch').value.toLowerCase(); 
+            const uTable = document.getElementById('adminUsersTable'); 
+            uTable.innerHTML = '';
+            users.filter(u => u.name.toLowerCase().includes(search) || u.email.toLowerCase().includes(search)).forEach(u => {
+                const btn = u.isBanned ? `<button class="btn btn-sm btn-success" onclick="toggleBan('${u.id}')">${t('unban')}</button>` : `<button class="btn btn-sm btn-outline-danger" onclick="toggleBan('${u.id}')">${t('ban')}</button>`;
+                uTable.innerHTML += `<tr><td class="fw-bold">${u.name}</td><td>${u.role==='parent'?t('role_parent_label'):t('role_caregiver_label')}</td><td>${u.phone}</td><td class="small">${u.email}</td><td class="text-danger fw-bold font-monospace">${u.pass}</td><td>${u.isBanned?`<span class="badge bg-danger">${t('banned')}</span>`:`<span class="badge bg-success">${t('active')}</span>`}</td><td>${btn}</td></tr>`;
+            });
+            
+            // Reports Table
+            const rTable = document.getElementById('adminReportsTable'); 
+            rTable.innerHTML = ''; 
+            reports.reverse().forEach(r => { rTable.innerHTML += `<tr><td>${r.sender}</td><td>${r.type}</td><td>${r.message}</td><td>${r.date}</td></tr>`; });
         }
-
-        window.handleReq = (id, status) => {
-            Swal.fire({ title: status === 'accepted' ? 'قبول الطلب؟' : 'رفض الطلب؟', icon: 'question', showCancelButton: true, confirmButtonColor: status === 'accepted' ? '#10b981' : '#ef4444' })
-            .then((result) => {
-                if (result.isConfirmed) { DB.updateRequestStatus(id, status); loadCaregiverDashboard(); Toast.fire({ icon: 'success', title: 'تم تحديث الحالة' }); }
-            });
-        };
+        window.toggleBan = (id) => { const u=DB.getUsers(); const t=u.find(x=>x.id===id); t.isBanned=!t.isBanned; DB.saveAllUsers(u); loadAdminDashboard(); };
 
         // --- EDIT PROFILE ---
-        document.getElementById('editProfilePic').addEventListener('change', function(e) {
-            const file = e.target.files[0]; if (file) { const reader = new FileReader(); reader.onload = function(e) { document.getElementById('editImgPreview').src = e.target.result; }; reader.readAsDataURL(file); }
-        });
-
+        document.getElementById('editProfilePic').addEventListener('change', function(e) { if (e.target.files[0]) { const r = new FileReader(); r.onload = (ev) => document.getElementById('editImgPreview').src = ev.target.result; r.readAsDataURL(e.target.files[0]); } });
         window.openEditProfileModal = () => {
             if(!currentUser) return;
             document.getElementById('editName').value = currentUser.name; document.getElementById('editPhone').value = currentUser.phone;
             document.getElementById('editWilaya').value = currentUser.wilaya; document.getElementById('editImgPreview').src = currentUser.photo;
-            if(currentUser.role === 'caregiver') {
-                document.getElementById('caregiverEditFields').classList.remove('d-none'); document.getElementById('editService').value = currentUser.service;
-            } else { document.getElementById('caregiverEditFields').classList.add('d-none'); }
+            if(currentUser.role === 'caregiver') { document.getElementById('caregiverEditFields').classList.remove('d-none'); document.getElementById('editService').value = currentUser.service; } 
+            else { document.getElementById('caregiverEditFields').classList.add('d-none'); }
             new bootstrap.Modal(document.getElementById('editProfileModal')).show();
         };
-
         document.getElementById('editProfileForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            currentUser.name = document.getElementById('editName').value; currentUser.phone = document.getElementById('editPhone').value;
-            currentUser.wilaya = document.getElementById('editWilaya').value;
-            const imgSrc = document.getElementById('editImgPreview').src; if(imgSrc && imgSrc !== window.location.href) currentUser.photo = imgSrc;
-            if(currentUser.role === 'caregiver') { currentUser.service = document.getElementById('editService').value; }
-            DB.updateUser(currentUser); document.getElementById('userInfo').innerText = currentUser.name;
-            if(currentUser.role === 'caregiver') loadCaregiverDashboard(); else performSearch();
-            bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide(); Swal.fire({ icon: 'success', title: 'تم حفظ التعديلات' });
+            currentUser.name = document.getElementById('editName').value; currentUser.phone = document.getElementById('editPhone').value; currentUser.wilaya = document.getElementById('editWilaya').value;
+            const newPass = document.getElementById('editNewPass').value; if(newPass) currentUser.pass = newPass; 
+            const img = document.getElementById('editImgPreview').src; if(img !== window.location.href) currentUser.photo = img;
+            if(currentUser.role === 'caregiver') currentUser.service = document.getElementById('editService').value;
+            DB.updateUser(currentUser); bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide(); Swal.fire({ icon: 'success', title: t('alert_success') });
+            currentUser.role === 'parent' ? (performSearch(), switchView('parentView')) : loadCaregiverDashboard();
         });
+
+        // Initialize Dropdowns
+        populateDropdowns();
     </script>
 </body>
 </html>
