@@ -37,7 +37,10 @@
 
         /* UI Components */
         .hero-header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            /* تم تغيير الصورة هنا بصورة أوضح وبجودة عالية تتناسب مع الخلفية الداكنة */
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.9)), url('https://images.unsplash.com/photo-1476703993599-0035a21b17a9?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
             padding: 50px 0; text-align: center;
             border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15); margin-bottom: 30px;
@@ -553,11 +556,35 @@
                 const sText = displayService ? (currentLang==='ar'?displayService.ar:displayService.fr) : c.service;
                 const wText = displayWilaya ? (currentLang==='ar'?displayWilaya.ar:displayWilaya.fr) : c.wilaya;
 
+                // FIX: Ensure ID is passed as a string to avoid errors if ID is numeric
                 container.innerHTML += `<div class="col-md-6 col-lg-4"><div class="custom-card p-3 h-100 text-center"><img src="${c.photo}" class="profile-img-preview mx-auto mb-2"><h5 class="fw-bold mb-1">${c.name}</h5><div class="mb-2" onclick="showReviews('${c.id}')" style="cursor:pointer">${stars} <span class="small">(${avg})</span></div><p class="small text-muted mb-2">${sText} | ${wText}</p><button class="btn btn-outline-primary w-100 fw-bold mt-auto" onclick="openRequestModal('${c.id}')">${t('request_service')}</button></div></div>`;
             });
         }
         window.openRequestModal = (id) => { document.getElementById('targetCaregiverId').value = id; new bootstrap.Modal(document.getElementById('requestModal')).show(); };
-        document.getElementById('sendRequestForm').addEventListener('submit', (e) => { e.preventDefault(); DB.saveRequest({ id: Date.now(), parentId: currentUser.id, parentName: currentUser.name, parentPhone: currentUser.phone, caregiverId: document.getElementById('targetCaregiverId').value, childName: document.getElementById('reqChildName').value, childAge: document.getElementById('reqChildAge').value, serviceType: 'Service', days: document.getElementById('reqDays').value, duration: document.getElementById('reqDuration').value, status: 'pending', isRated: false }); bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide(); Swal.fire({ icon: 'success', title: t('alert_sent') }); loadMyRequests(); });
+        
+        document.getElementById('sendRequestForm').addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            // FIX: Ensure ID is saved as String to prevent type mismatch
+            const cgId = String(document.getElementById('targetCaregiverId').value).trim();
+            DB.saveRequest({ 
+                id: Date.now(), 
+                parentId: currentUser.id, 
+                parentName: currentUser.name, 
+                parentPhone: currentUser.phone, 
+                caregiverId: cgId, 
+                childName: document.getElementById('reqChildName').value, 
+                childAge: document.getElementById('reqChildAge').value, 
+                serviceType: 'Service', 
+                days: document.getElementById('reqDays').value, 
+                duration: document.getElementById('reqDuration').value, 
+                status: 'pending', 
+                isRated: false 
+            }); 
+            bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide(); 
+            Swal.fire({ icon: 'success', title: t('alert_sent') }); 
+            loadMyRequests(); 
+        });
+
         function loadMyRequests() {
             const tbody = document.getElementById('myRequestsTable'); tbody.innerHTML = '';
             DB.getRequests().filter(r => r.parentId === currentUser.id).forEach(r => {
@@ -572,10 +599,12 @@
         // --- CAREGIVER DASHBOARD & STATS ---
         function loadCaregiverDashboard() {
             document.getElementById('dashboardProfileImg').src = currentUser.photo; document.getElementById('cgNameProfile').innerText = currentUser.name;
-            document.getElementById('cgWilayaProfile').innerText = currentUser.wilaya; document.getElementById('cgServiceProfile').innerText = currentUser.service;
             const toggle = document.getElementById('availabilityToggle'); const label = document.getElementById('availabilityLabel'); toggle.checked = currentUser.isAvailable !== false;
             label.innerText = toggle.checked ? t('status_online') : t('status_offline'); label.className = toggle.checked ? 'form-check-label fw-bold small text-success' : 'form-check-label fw-bold small text-danger';
-            const reqs = DB.getRequests().filter(r => r.caregiverId === currentUser.id);
+            
+            // FIX: Use loose equality (==) instead of strict (===) to handle String vs Number ID mismatch
+            const reqs = DB.getRequests().filter(r => r.caregiverId == currentUser.id);
+            
             document.getElementById('cgStatTotal').innerText = reqs.length; document.getElementById('cgStatPending').innerText = reqs.filter(r => r.status === 'pending').length; document.getElementById('cgStatAccepted').innerText = reqs.filter(r => r.status === 'accepted').length; document.getElementById('cgStatRejected').innerText = reqs.filter(r => r.status === 'rejected').length;
             const tbody = document.getElementById('incomingRequestsTable'); tbody.innerHTML = '';
             reqs.forEach(r => {
@@ -689,9 +718,9 @@
         // Initialize Dropdowns
         populateDropdowns();
 
-        // FIX: Apply placeholders and text immediately on load (حل المشكلة هنا)
+        // FIX: Apply placeholders and text immediately on load
         document.querySelectorAll('[data-i18n]').forEach(el => el.innerText = t(el.getAttribute('data-i18n')));
         document.querySelectorAll('[data-i18n-placeholder]').forEach(el => el.placeholder = t(el.getAttribute('data-i18n-placeholder')));
     </script>
 </body>
-</html>pour 
+</html>
