@@ -54,14 +54,16 @@
             color: white; text-align: center; background-color: #1e293b;
             overflow: hidden;
         }
+        /* START CHANGE: Background Image Updated */
         .landing-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop');
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQdqyaE5lfB0aq2Lh2NEtZ9RsZhjLSu7-7WpFh9jSbCZTddgHeXDcDnoUleSwnmO_i6hjNwsA_OcSVdqZoSBzUqPJvwAy-TPXy5oEICtGhXknABuFinIswpQBGJV52bTdlccbFB6CEHJeo6z11DK5y1uXcdWQJOXuhRVzngah-7Nm5BBkBhRSLCYDawvE/s1536/file_00000000623871f7950ad8ca1455d536.png');
             background-size: cover; background-position: center top; z-index: 1;
             transform-origin: center;
             animation: zoomMove 20s infinite alternate ease-in-out; 
             will-change: transform;
         }
+        /* END CHANGE */
         @keyframes zoomMove { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
         
         .landing-content { position: relative; z-index: 2; padding: 20px; }
@@ -96,8 +98,8 @@
         /* Stats Cards */
         .stat-box { padding: 20px; border-radius: 12px; color: white; position: relative; overflow: hidden; }
         /* INCREASED FONT SIZE FOR ADMIN DASHBOARD */
-        .stat-box h3 { font-weight: 900; margin-bottom: 0; font-size: 3.5rem; } 
-        .stat-box span { font-size: 0.9rem; opacity: 0.9; }
+        .stat-box h3 { font-weight: 900; margin-bottom: 0; font-size: 4rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); } 
+        .stat-box span { font-size: 1rem; opacity: 0.9; font-weight: bold; }
         
         .bg-gradient-primary { background: linear-gradient(45deg, #4e73df, #224abe); }
         .bg-gradient-success { background: linear-gradient(45deg, #1cc88a, #13855c); }
@@ -135,7 +137,10 @@
     <nav class="navbar navbar-expand bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-dark d-flex align-items-center" href="#" onclick="goHome()">
-                <i class="bi bi-balloon-heart-fill text-success me-2 fs-4"></i> <span data-i18n="app_name">مرافق</span>
+                <!-- START CHANGE: Added Logo Image -->
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSZfGEtI86QBwgGUyWALRzooflVAaPkSFJAUan2IFU5vY6IkbKE0PPu2QWuDphfbujw7OZAV7hEPP9IrCQ_HT_UW6NyZkD-JDzzmyRmRxfAb85YqtiHjJ9y4Q1rXpBtetXOE9VHgfnyN7iIhuIe2JTRBGMjC0aAqCZNZRLeIvf0OTp94tQQ_Fny5eguJs/s320/Picsart_26-01-31_16-19-13-033.png" alt="Logo" style="height: 50px;" class="me-2">
+                <!-- END CHANGE -->
+                <span data-i18n="app_name">مرافق</span>
             </a>
             
             <div class="d-flex align-items-center gap-2">
@@ -172,8 +177,9 @@
                 <div class="landing-bg"></div>
                 <div class="landing-content container">
                     <!-- GLOWING TEXT ADDED HERE -->
-                    <h1 class="mb-3 glow-text" data-i18n="welcome_title">أهلاً بك في عائلة مرافق</h1>
-                    <p class="subtitle mb-5 text-white fs-4" data-i18n="slogan"> حيث تجد أفظل الاخصائيين و المرافقين                  <button class="btn-start" onclick="startNow()" data-i18n="start_now">ابدأ الآن <i class="bi bi-arrow-left"></i></button>
+                    <h2 class="mb-3 glow-text" data-i18n="welcome_title">أهلاً بك في عائلة مرافق</h2>
+                    <p class="subtitle mb-5 text-white fs-4" data-i18n="slogan">طفلك في أيادي آمنة</p>
+                    <button class="btn-start" onclick="startNow()" data-i18n="start_now">ابدأ الآن <i class="bi bi-arrow-left"></i></button>
                 </div>
             </div>
         </section>
@@ -196,11 +202,12 @@
                                     <form id="loginForm">
                                         <div class="mb-3">
                                             <label class="form-label" data-i18n="email_label">البريد الإلكتروني</label>
-                                            <input type="text" class="form-control" id="loginEmail" required data-i18n-placeholder="email_placeholder">
+                                            <!-- Added autocapitalize and spellcheck -->
+                                            <input type="text" class="form-control" id="loginEmail" required data-i18n-placeholder="email_placeholder" autocapitalize="off" spellcheck="false" autocomplete="off">
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" data-i18n="pass_label">كلمة المرور</label>
-                                            <input type="password" class="form-control" id="loginPass" required data-i18n-placeholder="password_placeholder">
+                                            <input type="password" class="form-control" id="loginPass" required data-i18n-placeholder="password_placeholder" autocapitalize="off">
                                         </div>
                                         <div class="text-end mb-4"><a href="#" class="text-decoration-none small text-muted" onclick="openForgotPassModal()" data-i18n="forgot_password">نسيت كلمة المرور؟</a></div>
                                         <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-bold" data-i18n="login_btn">تسجيل الدخول</button>
@@ -423,6 +430,8 @@
                     <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> <span data-i18n="location_text">رويبة، الجزائر العاصمة</span></p>
                     <p class="mb-3"><i class="bi bi-envelope-fill text-primary"></i> contact@morafik.dz</p>
                     <form onsubmit="submitReport(event, 'رسالة تواصل')">
+                        <!-- ADDED EMAIL INPUT -->
+                        <div class="mb-3"><input type="email" class="form-control" placeholder="البريد الإلكتروني" required></div>
                         <div class="mb-3"><input type="text" class="form-control" placeholder="الاسم" required></div>
                         <div class="mb-3"><textarea class="form-control" rows="3" placeholder="الرسالة" required></textarea></div>
                         <button type="submit" class="btn btn-primary w-100" data-i18n="send">إرسال</button>
@@ -439,6 +448,8 @@
                 <div class="modal-header bg-danger text-white"><h5 class="modal-title" data-i18n="report_issue">الإبلاغ عن مشكلة</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
                 <div class="modal-body">
                     <form onsubmit="submitReport(event, 'بلاغ عن مشكلة')">
+                        <!-- ADDED EMAIL INPUT -->
+                        <div class="mb-3"><input type="email" class="form-control" placeholder="البريد الإلكتروني" required></div>
                         <div class="mb-3"><textarea class="form-control" rows="4" placeholder="تفاصيل المشكلة..." required></textarea></div>
                         <button type="submit" class="btn btn-danger w-100" data-i18n="send">إرسال البلاغ</button>
                     </form>
@@ -821,9 +832,14 @@
             // --- REPORTING ---
             window.submitReport = function(e, type) {
                 e.preventDefault();
-                const msg = e.target.querySelector('textarea').value;
+                const emailInput = e.target.querySelector('input[type="email"]');
+                const msgInput = e.target.querySelector('textarea');
+                
+                const email = emailInput ? emailInput.value : (currentUser ? currentUser.email : 'Anonymous');
+                const msg = msgInput.value;
+
                 const rep = {
-                    sender: currentUser ? currentUser.name : 'Visitor',
+                    sender: email, // Use email as sender ID
                     type: type,
                     message: msg,
                     date: new Date().toLocaleDateString()
@@ -867,9 +883,30 @@
                     && (sWilaya === 'الكل' || u.wilaya === sWilaya)
                     && (sService === 'الكل' || u.service === sService)
                 ).forEach(c => {
+                    // CALCULATE STARS
+                    const reviews = DB.getReviews().filter(r => r.caregiverId === c.id);
+                    const count = reviews.length;
+                    const sum = reviews.reduce((acc, r) => acc + parseInt(r.stars), 0);
+                    const avg = count ? (sum / count).toFixed(1) : 0;
+                    
+                    let starsHtml = '';
+                    for(let i=1; i<=5; i++) {
+                        starsHtml += `<i class="bi bi-star${i <= Math.round(avg) ? '-fill text-warning' : ' text-muted'}" style="font-size:0.9rem"></i>`;
+                    }
+
                     const sObj = services.find(s=>s.ar === c.service || s.fr === c.service);
                     const displayService = sObj ? (currentLang==='ar'?sObj.ar:sObj.fr) : c.service;
-                    container.innerHTML += `<div class="col-md-4"><div class="custom-card p-3 text-center h-100"><img src="${c.photo}" class="profile-img-preview mb-2"><h5 class="fw-bold">${c.name}</h5><p class="small text-muted mb-3">${displayService}<br>📍 ${c.wilaya}</p><button class="btn btn-outline-primary w-100 fw-bold mt-auto" onclick="openRequestModal('${c.id}')">${t('request_service')}</button></div></div>`;
+                    
+                    container.innerHTML += `
+                        <div class="col-md-4">
+                            <div class="custom-card p-3 text-center h-100">
+                                <img src="${c.photo}" class="profile-img-preview mb-2">
+                                <h5 class="fw-bold mb-1">${c.name}</h5>
+                                <div class="mb-2">${starsHtml} <small class="text-muted">(${avg})</small></div>
+                                <p class="small text-muted mb-3">${displayService}<br>📍 ${c.wilaya}</p>
+                                <button class="btn btn-outline-primary w-100 fw-bold mt-auto" onclick="openRequestModal('${c.id}')">${t('request_service')}</button>
+                            </div>
+                        </div>`;
                 });
                 if(container.innerHTML === '') container.innerHTML = '<div class="col-12 text-center text-muted">لا توجد نتائج</div>';
             };
