@@ -54,7 +54,6 @@
             color: white; text-align: center; background-color: #1e293b;
             overflow: hidden;
         }
-        /* START CHANGE: Background Image Updated */
         .landing-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQdqyaE5lfB0aq2Lh2NEtZ9RsZhjLSu7-7WpFh9jSbCZTddgHeXDcDnoUleSwnmO_i6hjNwsA_OcSVdqZoSBzUqPJvwAy-TPXy5oEICtGhXknABuFinIswpQBGJV52bTdlccbFB6CEHJeo6z11DK5y1uXcdWQJOXuhRVzngah-7Nm5BBkBhRSLCYDawvE/s1536/file_00000000623871f7950ad8ca1455d536.png');
@@ -63,12 +62,10 @@
             animation: zoomMove 20s infinite alternate ease-in-out; 
             will-change: transform;
         }
-        /* END CHANGE */
         @keyframes zoomMove { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
         
         .landing-content { position: relative; z-index: 2; padding: 20px; }
         
-        /* GLOWING TEXT EFFECT */
         .glow-text {
             font-size: 2.5rem; font-weight: 900; 
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px var(--accent-color);
@@ -97,7 +94,6 @@
         
         /* Stats Cards */
         .stat-box { padding: 20px; border-radius: 12px; color: white; position: relative; overflow: hidden; }
-        /* INCREASED FONT SIZE FOR ADMIN DASHBOARD */
         .stat-box h3 { font-weight: 900; margin-bottom: 0; font-size: 4rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); } 
         .stat-box span { font-size: 1rem; opacity: 0.9; font-weight: bold; }
         
@@ -137,9 +133,7 @@
     <nav class="navbar navbar-expand bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-dark d-flex align-items-center" href="#" onclick="goHome()">
-                <!-- START CHANGE: Added Logo Image -->
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSZfGEtI86QBwgGUyWALRzooflVAaPkSFJAUan2IFU5vY6IkbKE0PPu2QWuDphfbujw7OZAV7hEPP9IrCQ_HT_UW6NyZkD-JDzzmyRmRxfAb85YqtiHjJ9y4Q1rXpBtetXOE9VHgfnyN7iIhuIe2JTRBGMjC0aAqCZNZRLeIvf0OTp94tQQ_Fny5eguJs/s320/Picsart_26-01-31_16-19-13-033.png" alt="Logo" style="height: 50px;" class="me-2">
-                <!-- END CHANGE -->
                 <span data-i18n="app_name">مرافق</span>
             </a>
             
@@ -176,7 +170,6 @@
             <div class="landing-hero">
                 <div class="landing-bg"></div>
                 <div class="landing-content container">
-                    <!-- GLOWING TEXT ADDED HERE -->
                     <h2 class="mb-3 glow-text" data-i18n="welcome_title">أهلاً بك في عائلة مرافق</h2>
                     <p class="subtitle mb-5 text-white fs-4" data-i18n="slogan">طفلك في أيادي آمنة</p>
                     <button class="btn-start" onclick="startNow()" data-i18n="start_now">ابدأ الآن <i class="bi bi-arrow-left"></i></button>
@@ -202,7 +195,6 @@
                                     <form id="loginForm">
                                         <div class="mb-3">
                                             <label class="form-label" data-i18n="email_label">البريد الإلكتروني</label>
-                                            <!-- Added autocapitalize and spellcheck -->
                                             <input type="text" class="form-control" id="loginEmail" required data-i18n-placeholder="email_placeholder" autocapitalize="off" spellcheck="false" autocomplete="off">
                                         </div>
                                         <div class="mb-3">
@@ -212,7 +204,6 @@
                                         <div class="text-end mb-4"><a href="#" class="text-decoration-none small text-muted" onclick="openForgotPassModal()" data-i18n="forgot_password">نسيت كلمة المرور؟</a></div>
                                         <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-bold" data-i18n="login_btn">تسجيل الدخول</button>
                                     </form>
-                                    <div class="mt-3 text-center small text-muted"></div>
                                 </div>
                                 <!-- Register -->
                                 <div class="tab-pane fade" id="register-content">
@@ -270,7 +261,6 @@
         <!-- 2. PARENT VIEW -->
         <section id="parentView" class="view-section">
             <div class="container py-4">
-                <!-- Parent Simple Dashboard -->
                 <div class="row g-3 mb-4">
                     <div class="col-4"><div class="stat-box bg-gradient-primary text-center"><h3><i class="bi bi-send"></i></h3><span id="pStatTotal">0</span> <span data-i18n="stat_total_req">الطلبات</span></div></div>
                     <div class="col-4"><div class="stat-box bg-gradient-success text-center"><h3><i class="bi bi-check-circle"></i></h3><span id="pStatAccepted">0</span> <span data-i18n="stat_accepted">مقبولة</span></div></div>
@@ -316,7 +306,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Caregiver Dashboard Stats -->
                 <div class="row mb-4 g-3">
                     <div class="col-6 col-md-3"><div class="stat-box bg-gradient-primary text-center"><h3 id="cgStatTotal">0</h3><span data-i18n="stat_total_req">الكل</span></div></div>
                     <div class="col-6 col-md-3"><div class="stat-box bg-gradient-warning text-center"><h3 id="cgStatPending">0</h3><span data-i18n="stat_new_req">انتظار</span></div></div>
@@ -336,7 +325,6 @@
                     <button class="btn btn-dark btn-sm rounded-pill" onclick="openSendNotifModal()"><i class="bi bi-megaphone-fill"></i> <span data-i18n="send_notif">إرسال إشعار</span></button>
                 </div>
 
-                <!-- Admin Stats (BIG NUMBERS) -->
                 <div class="row g-3 mb-4">
                     <div class="col-md-3"><div class="stat-box bg-gradient-primary"><h3><i class="bi bi-people"></i> <span id="statTotalUsers" class="float-end">0</span></h3><span data-i18n="stat_users">المستخدمين</span></div></div>
                     <div class="col-md-3"><div class="stat-box bg-gradient-success"><h3><i class="bi bi-heart-pulse"></i> <span id="statCaregivers" class="float-end">0</span></h3><span data-i18n="stat_caregivers">المرافقات</span></div></div>
@@ -430,7 +418,6 @@
                     <p class="mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> <span data-i18n="location_text">رويبة، الجزائر العاصمة</span></p>
                     <p class="mb-3"><i class="bi bi-envelope-fill text-primary"></i> contact@morafik.dz</p>
                     <form onsubmit="submitReport(event, 'رسالة تواصل')">
-                        <!-- ADDED EMAIL INPUT -->
                         <div class="mb-3"><input type="email" class="form-control" placeholder="البريد الإلكتروني" required></div>
                         <div class="mb-3"><input type="text" class="form-control" placeholder="الاسم" required></div>
                         <div class="mb-3"><textarea class="form-control" rows="3" placeholder="الرسالة" required></textarea></div>
@@ -448,7 +435,6 @@
                 <div class="modal-header bg-danger text-white"><h5 class="modal-title" data-i18n="report_issue">الإبلاغ عن مشكلة</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
                 <div class="modal-body">
                     <form onsubmit="submitReport(event, 'بلاغ عن مشكلة')">
-                        <!-- ADDED EMAIL INPUT -->
                         <div class="mb-3"><input type="email" class="form-control" placeholder="البريد الإلكتروني" required></div>
                         <div class="mb-3"><textarea class="form-control" rows="4" placeholder="تفاصيل المشكلة..." required></textarea></div>
                         <button type="submit" class="btn btn-danger w-100" data-i18n="send">إرسال البلاغ</button>
@@ -635,14 +621,141 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(() => { document.getElementById('page-loader').style.display = 'none'; document.body.classList.add('loaded'); }, 800);
 
-            // --- DATA: FULL 58 WILAYAS ---
-            const wilayas = [
+    <!-- 🔴 مكتبات FIREBASE (نسخة التوافق - تعمل مباشرة) 🔴 -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    
+    <!-- كود التطبيق -->
+    <script>
+        // 1. إعدادات Firebase الخاصة بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyAaXp-gUOQ_G2s-kM8JhaqW8TJcJ4Nqcuo",
+            authDomain: "comondi-fae4b.firebaseapp.com",
+            databaseURL: "https://comondi-fae4b-default-rtdb.firebaseio.com",
+            projectId: "comondi-fae4b",
+            storageBucket: "comondi-fae4b.firebasestorage.app",
+            messagingSenderId: "932777870241",
+            appId: "1:932777870241:web:78b0cf3a3cf14046be01e0",
+            measurementId: "G-M09RX0V18S"
+        };
+
+        // 2. تهيئة Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+            console.log("Firebase Connected Successfully");
+        } catch (error) {
+            console.error("Firebase Error:", error);
+            alert("خطأ في الاتصال بقاعدة البيانات. تأكد من الإنترنت.");
+        }
+
+        // متغيرات التطبيق
+        let localUsers = [];
+        let localRequests = [];
+        let localNotifs = [];
+        let localReviews = [];
+        let localReports = [];
+        let currentUser = null; 
+
+        // --- تشغيل التطبيق وإظهار الشاشة ---
+        document.addEventListener("DOMContentLoaded", function() {
+            // إخفاء شاشة التحميل بعد ثانية
+            setTimeout(() => {
+                const loader = document.getElementById('page-loader');
+                if(loader) loader.style.display = 'none';
+                document.body.classList.add('loaded');
+                document.body.style.opacity = '1'; 
+            }, 1000);
+
+            initListeners(); // بدء الاستماع لقاعدة البيانات
+            populateDropdowns();
+            switchView('landingView');
+        });
+
+        // --- دوال قاعدة البيانات (Realtime Database) ---
+        function initListeners() {
+            const db = firebase.database();
+
+            // 1. جلب المستخدمين
+            db.ref('users').on('value', (snapshot) => {
+                const data = snapshot.val();
+                localUsers = data ? Object.values(data) : [];
+                if (localUsers.length === 0) seedDatabase();
+                refreshUI();
+            });
+
+            // 2. جلب الطلبات
+            db.ref('requests').on('value', (snapshot) => {
+                const data = snapshot.val();
+                localRequests = data ? Object.values(data) : [];
+                refreshUI();
+            });
+
+            // 3. جلب الإشعارات
+            db.ref('notifications').on('value', (snapshot) => {
+                const data = snapshot.val();
+                localNotifs = data ? Object.values(data) : [];
+                checkNotifications();
+            });
+
+            // 4. جلب التقييمات
+            db.ref('reviews').on('value', (snapshot) => {
+                const data = snapshot.val();
+                localReviews = data ? Object.values(data) : [];
+            });
+
+            // 5. جلب التقارير
+            db.ref('reports').on('value', (snapshot) => {
+                const data = snapshot.val();
+                localReports = data ? Object.values(data) : [];
+                if(currentUser && currentUser.role === 'admin') loadAdminDashboard();
+            });
+        }
+
+        // واجهة التعامل مع البيانات (DB Adapter)
+        const DB = {
+            getUsers: () => localUsers,
+            saveUser: (u) => firebase.database().ref('users/' + u.id).set(u),
+            updateUser: (u) => firebase.database().ref('users/' + u.id).update(u),
+            getRequests: () => localRequests,
+            saveRequest: (r) => firebase.database().ref('requests/' + r.id).set(r),
+            updateRequest: (id, s) => firebase.database().ref('requests/' + id).update({status: s}),
+            updateRequestRating: (id) => firebase.database().ref('requests/' + id).update({isRated: true}),
+            getNotifs: () => localNotifs,
+            saveNotif: (n) => firebase.database().ref('notifications').push(n),
+            getReviews: () => localReviews,
+            saveReview: (r) => firebase.database().ref('reviews/' + r.id).set(r),
+            getReports: () => localReports,
+            saveReport: (r) => firebase.database().ref('reports').push(r)
+        };
+
+        // --- تحديث الواجهة ---
+        function refreshUI() {
+            if(!currentUser) return;
+            if(currentUser.role === 'parent') {
+                loadParentStats();
+                loadMyRequests();
+                if(document.getElementById('resultsArea').innerHTML !== '') performSearch();
+            } else if (currentUser.role === 'caregiver') {
+                loadCaregiverDashboard();
+            } else if (currentUser.role === 'admin') {
+                loadAdminDashboard();
+            }
+        }
+
+        function seedDatabase() {
+            // إضافة مستخدمين وهميين للتجربة فقط إذا كانت القاعدة فارغة
+            const initialUsers = [
+                { id: 'c1', name: 'د. سارة (نفسانية)', email: 'doc@test.com', pass: '123', role: 'caregiver', phone: '0550112233', wilaya: 'الجزائر', service: 'استشارة (أخصائي نفساني)', isAvailable: true, photo: "https://cdn-icons-png.flaticon.com/512/3304/3304567.png", isBanned: false },
+                { id: 'p1', name: 'أحمد الولي', email: 'parent@test.com', pass: '123', role: 'parent', phone: '0555000000', wilaya: 'الجزائر', photo: "https://cdn-icons-png.flaticon.com/512/3011/3011270.png", isBanned: false }
+            ];
+            initialUsers.forEach(u => firebase.database().ref('users/' + u.id).set(u));
+        }
+
+        // --- الثوابت والترجمة ---
+        const wilayas = [
                 {id:1,ar:"أدرار",fr:"Adrar"},{id:2,ar:"الشلف",fr:"Chlef"},{id:3,ar:"الأغواط",fr:"Laghouat"},{id:4,ar:"أم البواقي",fr:"Oum El Bouaghi"},
                 {id:5,ar:"باتنة",fr:"Batna"},{id:6,ar:"بجاية",fr:"Béjaïa"},{id:7,ar:"بسكرة",fr:"Biskra"},{id:8,ar:"بشار",fr:"Béchar"},
                 {id:9,ar:"البليدة",fr:"Blida"},{id:10,ar:"البويرة",fr:"Bouira"},{id:11,ar:"تمنراست",fr:"Tamanrasset"},{id:12,ar:"تبسة",fr:"Tébessa"},
@@ -658,497 +771,473 @@
                 {id:49,ar:"تيميمون",fr:"Timimoun"},{id:50,ar:"برج باجي مختار",fr:"Bordj Badji Mokhtar"},{id:51,ar:"أولاد جلال",fr:"Ouled Djellal"},{id:52,ar:"بني عباس",fr:"Béni Abbès"},
                 {id:53,ar:"إن صالح",fr:"In Salah"},{id:54,ar:"إن قزام",fr:"In Guezzam"},{id:55,ar:"توقرت",fr:"Touggourt"},{id:56,ar:"جانت",fr:"Djanet"},
                 {id:57,ar:"المغير",fr:"El M'Ghair"},{id:58,ar:"المنيعة",fr:"El Meniaa"}
-            ];
+        ];
 
-            const services = [
-                {code:"srv_psych",ar:"استشارة (أخصائي نفساني)",fr:"Consultation (Psychologue)"},
-                {code:"srv_autism",ar:"مرافق طفل التوحد",fr:"Accompagnateur enfant autiste"},
-                {code:"srv_speech",ar:"أرطوفونيا (تصحيح النطق)",fr:"Orthophoniste"},
-                
-            ];
+        const services = [
+            {code:"srv_psych",ar:"استشارة (أخصائي نفساني)",fr:"Consultation (Psychologue)"},
+            {code:"srv_autism",ar:"مرافق طفل التوحد",fr:"Accompagnateur enfant autiste"},
+            {code:"srv_speech",ar:"أرطوفونيا (تصحيح النطق)",fr:"Orthophoniste"},
+        ];
 
-            const translations = {
-                ar: {
-                    app_name:"مرافق", home:"الرئيسية", login:"دخول", register:"حساب جديد", start_now:"ابدأ الآن",
-                    welcome_title:"أهلاً بك في عائلة مرافق", slogan:"طفلك في أيادي آمنة",
-                    role_parent:"ولي أمر", role_caregiver:"مرافقة / مختص",
-                    email_label:"البريد الإلكتروني", email_placeholder:"مثال: user@mail.com",
-                    pass_label:"كلمة المرور", password_placeholder:"******",
-                    fullname:"الاسم الكامل", phone:"رقم الهاتف", wilaya:"الولاية",
-                    search_title:"ابحث عن مختص", all_wilayas:"كل الولايات", all_services:"كل الخدمات",
-                    search_btn:"بحث", service_type:"نوع الخدمة",
-                    child_age:"عمر الطفل", child_name:"اسم الطفل", school_level:"الطور الدراسي",
-                    lvl_primary:"ابتدائي", lvl_middle:"متوسط", lvl_secondary:"ثانوي", lvl_none:"غير متمدرس",
-                    child_condition:"حالة الطفل", cond_normal:"عادي", cond_autism:"طيف توحد", cond_speech:"تأخر نطق", cond_adhd:"فرط حركة",
-                    duration:"المدة", dur_session:"جلسة واحدة", dur_term:"فصل دراسي", dur_year:"سنة دراسية", "1_month":"شهر",
-                    days:"الأيام المفضلة", confirm_send:"تأكيد وإرسال",
-                    edit_profile:"تعديل البروفايل", save:"حفظ التغييرات", change_pass:"تغيير كلمة المرور", pro_info:"معلومات مهنية",
-                    upload_cert:"رفع الشهادة المهنية",
-                    th_caregiver:"المختص", th_service:"الطفل", th_status:"الحالة", th_action:"الإجراء",
-                    status_online:"أنا في الخدمة", incoming_requests:"الطلبات الواردة", th_parent:"الولي", th_child:"الطفل", th_details:"التفاصيل",
-                    stat_total_req:"الكل", stat_new_req:"انتظار", stat_accepted:"مقبولة", stat_rejected:"مرفوضة",
-                    settings:"إعدادات", logout:"خروج", forgot_password:"نسيت كلمة المرور؟", login_btn:"تسجيل الدخول", create_account_btn:"إنشاء حساب",
-                    my_requests:"طلباتي السابقة",
-                    admin_panel:"لوحة التحكم", send_notif:"إرسال إشعار", stat_users:"المستخدمين", stat_caregivers:"المرافقات", stat_reports:"الشكاوى",
-                    successful_ops:"عمليات ناجحة", successful_caregivers:"أنجح المرافقات", daily_transactions:"التعاملات اليومية", manage_users:"إدارة المستخدمين",
-                    reports_messages:"الشكاوى والرسائل", sender:"المرسل", type:"النوع", message:"الرسالة", date:"التاريخ",
-                    target_audience:"الفئة المستهدفة", all:"الجميع", send:"إرسال", notifications:"الإشعارات", search_placeholder:"بحث...",
-                    th_name:"الاسم", th_role:"النوع", alert_error:"خطأ", alert_sent:"تم الإرسال",
-                    rate_caregiver:"تقييم المرافقة", comment_placeholder:"اكتب تعليقك هنا...", submit_rating:"إرسال التقييم",
-                    about_us:"من نحن", privacy_policy:"سياسة الخصوصية", contact_us:"تواصل معنا", report_issue:"الإبلاغ عن مشكلة", copyright:"جميع الحقوق محفوظة © 2024",
-                    about_content:"منصة جزائرية مبتكرة تهدف لربط الأولياء بأفضل المختصين. مقرنا في رويبة، الجزائر العاصمة. نسعى لتوفير بيئة آمنة لطفلك.",
-                    privacy_content:"نحن نلتزم بحماية بياناتك الشخصية. جميع المعلومات تستخدم فقط لغرض تحسين الخدمة ولن يتم مشاركتها مع أطراف ثالثة دون موافقتك.",
-                    location_text:"رويبة، الجزائر العاصمة", recover_hint:"أدخل بريدك الإلكتروني لاستعادة كلمة المرور."
-                },
-                fr: {
-                    app_name:"Morafik", home:"Accueil", login:"Connexion", register:"Inscription", start_now:"Commencer",
-                    welcome_title:"Bienvenue chez Morafik", slogan:"Votre enfant en sécurité",
-                    role_parent:"Parent", role_caregiver:"Spécialiste",
-                    email_label:"Email", email_placeholder:"ex: user@mail.com",
-                    pass_label:"Mot de passe", password_placeholder:"******",
-                    fullname:"Nom complet", phone:"Téléphone", wilaya:"Wilaya",
-                    search_title:"Trouver un spécialiste", all_wilayas:"Toutes Wilayas", all_services:"Tous Services",
-                    search_btn:"Rechercher", service_type:"Service",
-                    child_age:"Âge enfant", child_name:"Nom enfant", school_level:"Niveau scolaire",
-                    lvl_primary:"Primaire", lvl_middle:"Moyen", lvl_secondary:"Lycée", lvl_none:"Aucun",
-                    child_condition:"État de l'enfant", cond_normal:"Normal", cond_autism:"Autiste", cond_speech:"Retard parole", cond_adhd:"TDAH",
-                    duration:"Durée", dur_session:"Séance", dur_term:"Trimestre", dur_year:"Année scolaire", "1_month":"1 Mois",
-                    days:"Jours préférés", confirm_send:"Confirmer",
-                    edit_profile:"Modifier Profil", save:"Enregistrer", change_pass:"Changer mot de passe", pro_info:"Infos pro",
-                    upload_cert:"Diplôme (PDF)",
-                    th_caregiver:"Spécialiste", th_service:"Enfant", th_status:"Statut", th_action:"Action",
-                    status_online:"En Service", incoming_requests:"Demandes reçues", th_parent:"Parent", th_child:"Enfant", th_details:"Détails",
-                    stat_total_req:"Total", stat_new_req:"Attente", stat_accepted:"Accepté", stat_rejected:"Refusé",
-                    settings:"Paramètres", logout:"Déconnexion", forgot_password:"Mot de passe oublié?", login_btn:"Se connecter", create_account_btn:"Créer compte",
-                    my_requests:"Mes demandes",
-                    admin_panel:"Panneau Admin", send_notif:"Envoyer Notif", stat_users:"Utilisateurs", stat_caregivers:"Spécialistes", stat_reports:"Signalements",
-                    successful_ops:"Opérations réussies", successful_caregivers:"Top Spécialistes", daily_transactions:"Transactions du jour", manage_users:"Gérer utilisateurs",
-                    reports_messages:"Signalements & Messages", sender:"Expéditeur", type:"Type", message:"Message", date:"Date",
-                    target_audience:"Cible", all:"Tous", send:"Envoyer", notifications:"Notifications", search_placeholder:"Rechercher...",
-                    th_name:"Nom", th_role:"Rôle", alert_error:"Erreur", alert_sent:"Envoyé",
-                    rate_caregiver:"Noter le spécialiste", comment_placeholder:"Votre commentaire...", submit_rating:"Envoyer l'avis",
-                    about_us:"À propos", privacy_policy:"Confidentialité", contact_us:"Contactez-nous", report_issue:"Signaler problème", copyright:"Tous droits réservés © 2024",
-                    about_content:"Plateforme algérienne innovante reliant les parents aux meilleurs spécialistes. Basée à Rouiba, Alger. Nous assurons un environnement sûr.",
-                    privacy_content:"Nous protégeons vos données. Toutes les infos sont utilisées uniquement pour le service et ne seront pas partagées sans accord.",
-                    location_text:"Rouiba, Alger", recover_hint:"Entrez votre email pour récupérer le mot de passe."
-                }
-            };
+        const translations = {
+            ar: {
+                app_name:"مرافق", home:"الرئيسية", login:"دخول", register:"حساب جديد", start_now:"ابدأ الآن",
+                welcome_title:"أهلاً بك في عائلة مرافق", slogan:"طفلك في أيادي آمنة",
+                role_parent:"ولي أمر", role_caregiver:"مرافقة / مختص",
+                email_label:"البريد الإلكتروني", email_placeholder:"مثال: user@mail.com",
+                pass_label:"كلمة المرور", password_placeholder:"******",
+                fullname:"الاسم الكامل", phone:"رقم الهاتف", wilaya:"الولاية",
+                search_title:"ابحث عن مختص", all_wilayas:"كل الولايات", all_services:"كل الخدمات",
+                search_btn:"بحث", service_type:"نوع الخدمة",
+                child_age:"عمر الطفل", child_name:"اسم الطفل", school_level:"الطور الدراسي",
+                lvl_primary:"ابتدائي", lvl_middle:"متوسط", lvl_secondary:"ثانوي", lvl_none:"غير متمدرس",
+                child_condition:"حالة الطفل", cond_normal:"عادي", cond_autism:"طيف توحد", cond_speech:"تأخر نطق", cond_adhd:"فرط حركة",
+                duration:"المدة", dur_session:"جلسة واحدة", dur_term:"فصل دراسي", dur_year:"سنة دراسية", "1_month":"شهر",
+                days:"الأيام المفضلة", confirm_send:"تأكيد وإرسال",
+                edit_profile:"تعديل البروفايل", save:"حفظ التغييرات", change_pass:"تغيير كلمة المرور", pro_info:"معلومات مهنية",
+                upload_cert:"رفع الشهادة المهنية",
+                th_caregiver:"المختص", th_service:"الطفل", th_status:"الحالة", th_action:"الإجراء",
+                status_online:"أنا في الخدمة", incoming_requests:"الطلبات الواردة", th_parent:"الولي", th_child:"الطفل", th_details:"التفاصيل",
+                stat_total_req:"الكل", stat_new_req:"انتظار", stat_accepted:"مقبولة", stat_rejected:"مرفوضة",
+                settings:"إعدادات", logout:"خروج", forgot_password:"نسيت كلمة المرور؟", login_btn:"تسجيل الدخول", create_account_btn:"إنشاء حساب",
+                my_requests:"طلباتي السابقة",
+                admin_panel:"لوحة التحكم", send_notif:"إرسال إشعار", stat_users:"المستخدمين", stat_caregivers:"المرافقات", stat_reports:"الشكاوى",
+                successful_ops:"عمليات ناجحة", successful_caregivers:"أنجح المرافقات", daily_transactions:"التعاملات اليومية", manage_users:"إدارة المستخدمين",
+                reports_messages:"الشكاوى والرسائل", sender:"المرسل", type:"النوع", message:"الرسالة", date:"التاريخ",
+                target_audience:"الفئة المستهدفة", all:"الجميع", send:"إرسال", notifications:"الإشعارات", search_placeholder:"بحث...",
+                th_name:"الاسم", th_role:"النوع", alert_error:"خطأ", alert_sent:"تم الإرسال",
+                rate_caregiver:"تقييم المرافقة", comment_placeholder:"اكتب تعليقك هنا...", submit_rating:"إرسال التقييم",
+                about_us:"من نحن", privacy_policy:"سياسة الخصوصية", contact_us:"تواصل معنا", report_issue:"الإبلاغ عن مشكلة", copyright:"جميع الحقوق محفوظة © 2024",
+                about_content:"منصة جزائرية مبتكرة تهدف لربط الأولياء بأفضل المختصين. مقرنا في رويبة، الجزائر العاصمة. نسعى لتوفير بيئة آمنة لطفلك.",
+                privacy_content:"نحن نلتزم بحماية بياناتك الشخصية. جميع المعلومات تستخدم فقط لغرض تحسين الخدمة ولن يتم مشاركتها مع أطراف ثالثة دون موافقتك.",
+                location_text:"رويبة، الجزائر العاصمة", recover_hint:"أدخل بريدك الإلكتروني لاستعادة كلمة المرور."
+            },
+            fr: {
+                app_name:"Morafik", home:"Accueil", login:"Connexion", register:"Inscription", start_now:"Commencer",
+                welcome_title:"Bienvenue chez Morafik", slogan:"Votre enfant en sécurité",
+                role_parent:"Parent", role_caregiver:"Spécialiste",
+                email_label:"Email", email_placeholder:"ex: user@mail.com",
+                pass_label:"Mot de passe", password_placeholder:"******",
+                fullname:"Nom complet", phone:"Téléphone", wilaya:"Wilaya",
+                search_title:"Trouver un spécialiste", all_wilayas:"Toutes Wilayas", all_services:"Tous Services",
+                search_btn:"Rechercher", service_type:"Service",
+                child_age:"Âge enfant", child_name:"Nom enfant", school_level:"Niveau scolaire",
+                lvl_primary:"Primaire", lvl_middle:"Moyen", lvl_secondary:"Lycée", lvl_none:"Aucun",
+                child_condition:"État de l'enfant", cond_normal:"Normal", cond_autism:"Autiste", cond_speech:"Retard parole", cond_adhd:"TDAH",
+                duration:"Durée", dur_session:"Séance", dur_term:"Trimestre", dur_year:"Année scolaire", "1_month":"1 Mois",
+                days:"Jours préférés", confirm_send:"Confirmer",
+                edit_profile:"Modifier Profil", save:"Enregistrer", change_pass:"Changer mot de passe", pro_info:"Infos pro",
+                upload_cert:"Diplôme (PDF)",
+                th_caregiver:"Spécialiste", th_service:"Enfant", th_status:"Statut", th_action:"Action",
+                status_online:"En Service", incoming_requests:"Demandes reçues", th_parent:"Parent", th_child:"Enfant", th_details:"Détails",
+                stat_total_req:"Total", stat_new_req:"Attente", stat_accepted:"Accepté", stat_rejected:"Refusé",
+                settings:"Paramètres", logout:"Déconnexion", forgot_password:"Mot de passe oublié?", login_btn:"Se connecter", create_account_btn:"Créer compte",
+                my_requests:"Mes demandes",
+                admin_panel:"Panneau Admin", send_notif:"Envoyer Notif", stat_users:"Utilisateurs", stat_caregivers:"Spécialistes", stat_reports:"Signalements",
+                successful_ops:"Opérations réussies", successful_caregivers:"Top Spécialistes", daily_transactions:"Transactions du jour", manage_users:"Gérer utilisateurs",
+                reports_messages:"Signalements & Messages", sender:"Expéditeur", type:"Type", message:"Message", date:"Date",
+                target_audience:"Cible", all:"Tous", send:"Envoyer", notifications:"Notifications", search_placeholder:"Rechercher...",
+                th_name:"Nom", th_role:"Rôle", alert_error:"Erreur", alert_sent:"Envoyé",
+                rate_caregiver:"Noter le spécialiste", comment_placeholder:"Votre commentaire...", submit_rating:"Envoyer l'avis",
+                about_us:"À propos", privacy_policy:"Confidentialité", contact_us:"Contactez-nous", report_issue:"Signaler problème", copyright:"Tous droits réservés © 2024",
+                about_content:"Plateforme algérienne innovante reliant les parents aux meilleurs spécialistes. Basée à Rouiba, Alger. Nous assurons un environnement sûr.",
+                privacy_content:"Nous protégeons vos données. Toutes les infos sont utilisées uniquement pour le service et ne seront pas partagées sans accord.",
+                location_text:"Rouiba, Alger", recover_hint:"Entrez votre email pour récupérer le mot de passe."
+            }
+        };
 
-            let currentLang = 'ar';
-            function t(key) { return translations[currentLang][key] || key; }
+        let currentLang = 'ar';
+        function t(key) { return translations[currentLang][key] || key; }
 
-            // Init DB
-            const initialUsers = [
-                { id: 'c1', name: 'د. سارة (نفسانية)', email: 'doc@test.com', pass: '123', role: 'caregiver', phone: '0550112233', wilaya: 'الجزائر', service: 'استشارة (أخصائي نفساني)', isAvailable: true, photo: "https://cdn-icons-png.flaticon.com/512/3304/3304567.png", isBanned: false },
-                { id: 'p1', name: 'أحمد الولي', email: 'parent@test.com', pass: '123', role: 'parent', phone: '0555000000', wilaya: 'الجزائر', photo: "https://cdn-icons-png.flaticon.com/512/3011/3011270.png", isBanned: false }
-            ];
-            if (!localStorage.getItem('users')) localStorage.setItem('users', JSON.stringify(initialUsers));
-            if (!localStorage.getItem('requests')) localStorage.setItem('requests', JSON.stringify([]));
-            if (!localStorage.getItem('notifications')) localStorage.setItem('notifications', JSON.stringify([]));
-            if (!localStorage.getItem('reviews')) localStorage.setItem('reviews', JSON.stringify([]));
+        // --- NAVIGATION ---
+        window.switchView = function(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => { el.classList.remove('active'); el.style.opacity=0; });
+            const target = document.getElementById(viewId);
+            target.classList.add('active');
+            setTimeout(()=>target.style.opacity=1, 50);
+            window.scrollTo(0,0);
+        };
 
-            const DB = {
-                getUsers: () => JSON.parse(localStorage.getItem('users')),
-                saveUser: (u) => { const us = DB.getUsers(); us.push(u); localStorage.setItem('users', JSON.stringify(us)); },
-                saveAllUsers: (us) => localStorage.setItem('users', JSON.stringify(us)),
-                updateUser: (updatedUser) => { const users = DB.getUsers(); const idx = users.findIndex(u => u.id === updatedUser.id); if(idx !== -1) { users[idx] = updatedUser; localStorage.setItem('users', JSON.stringify(users)); return true; } return false; },
-                getRequests: () => JSON.parse(localStorage.getItem('requests')),
-                saveRequest: (r) => { const rs = DB.getRequests(); rs.push(r); localStorage.setItem('requests', JSON.stringify(rs)); },
-                updateRequest: (id, s) => { const rs = DB.getRequests(); const idx = rs.findIndex(r=>r.id==id); if(idx!==-1){rs[idx].status=s; localStorage.setItem('requests', JSON.stringify(rs));} },
-                updateRequestRating: (id) => { const rs = DB.getRequests(); const idx = rs.findIndex(r=>r.id==id); if(idx!==-1){rs[idx].isRated=true; localStorage.setItem('requests', JSON.stringify(rs));} },
-                getNotifs: () => JSON.parse(localStorage.getItem('notifications')),
-                saveNotif: (n) => { const ns = DB.getNotifs(); ns.push(n); localStorage.setItem('notifications', JSON.stringify(ns)); },
-                getReviews: () => JSON.parse(localStorage.getItem('reviews')),
-                saveReview: (rev) => { const rs = DB.getReviews(); rs.push(rev); localStorage.setItem('reviews', JSON.stringify(rs)); },
-                saveReport: (rep) => { const r = JSON.parse(localStorage.getItem('reports') || '[]'); r.push(rep); localStorage.setItem('reports', JSON.stringify(r)); }
-            };
+        window.goHome = function() { if(currentUser) return; switchView('landingView'); };
+        window.goToLogin = function() { switchView('authView'); new bootstrap.Tab(document.querySelector('#tab-login')).show(); };
+        window.startNow = function() { switchView('authView'); new bootstrap.Tab(document.querySelector('#tab-register')).show(); };
+        window.openModal = function(id) { new bootstrap.Modal(document.getElementById(id)).show(); };
 
-            let currentUser = null;
+        window.logout = function() {
+            currentUser = null;
+            document.getElementById('guestNav').classList.remove('d-none');
+            document.getElementById('userNav').classList.add('d-none');
+            document.getElementById('loginForm').reset();
+            switchView('landingView');
+        };
 
-            // --- NAVIGATION ---
-            window.switchView = function(viewId) {
-                document.querySelectorAll('.view-section').forEach(el => { el.classList.remove('active'); el.style.opacity=0; });
-                const target = document.getElementById(viewId);
-                target.classList.add('active');
-                setTimeout(()=>target.style.opacity=1, 50);
-                window.scrollTo(0,0);
-            };
-
-            window.goHome = function() { if(currentUser) return; switchView('landingView'); };
-            window.goToLogin = function() { switchView('authView'); new bootstrap.Tab(document.querySelector('#tab-login')).show(); };
-            window.startNow = function() { switchView('authView'); new bootstrap.Tab(document.querySelector('#tab-register')).show(); };
-            window.openModal = function(id) { new bootstrap.Modal(document.getElementById(id)).show(); };
-
-            window.logout = function() {
-                currentUser = null;
-                document.getElementById('guestNav').classList.remove('d-none');
-                document.getElementById('userNav').classList.add('d-none');
-                document.getElementById('loginForm').reset();
-                switchView('landingView');
-            };
-
-            // --- AUTH ---
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                // ToLowerCase added here for case insensitivity
-                const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-                const pass = document.getElementById('loginPass').value;
-                
-                if(email === 'admin' && pass === 'abobob123') {
-                    currentUser = { name: 'Admin', role: 'admin' };
-                    document.getElementById('guestNav').classList.add('d-none');
-                    document.getElementById('userNav').classList.remove('d-none');
-                    document.getElementById('userInfo').innerText = 'Admin';
-                    loadAdminDashboard();
-                    switchView('adminView'); return;
-                }
-
-                // Check stored email (also lowercased)
-                const user = DB.getUsers().find(u => u.email.toLowerCase() === email && u.pass === pass);
-                if(user) {
-                    if(user.isBanned) { Swal.fire({icon:'error', title:'محظور', text:'تم حظر حسابك من قبل الإدارة'}); return; }
-                    currentUser = user;
-                    document.getElementById('guestNav').classList.add('d-none');
-                    document.getElementById('userNav').classList.remove('d-none');
-                    document.getElementById('userInfo').innerText = user.name;
-                    checkNotifications();
-                    if(user.role === 'parent') { switchView('parentView'); performSearch(); loadMyRequests(); loadParentStats(); }
-                    else { switchView('caregiverView'); loadCaregiverDashboard(); }
-                } else {
-                    Swal.fire({icon:'error', title: t('alert_error'), text:'بيانات غير صحيحة'});
-                }
-            });
-
-            document.getElementById('registerForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const role = document.getElementById('regRole').value;
-                const newUser = { id: 'u' + Date.now(), name: document.getElementById('regName').value, email: document.getElementById('regEmail').value, phone: document.getElementById('regPhone').value, pass: document.getElementById('regPass').value, role: role, wilaya: document.getElementById('regWilaya').value, photo: "https://cdn-icons-png.flaticon.com/512/149/149071.png", isAvailable: true, isBanned: false };
-                if (role === 'caregiver') { newUser.service = document.getElementById('regService').value; }
-                DB.saveUser(newUser); 
-                Swal.fire({icon:'success', title:'تم التسجيل'});
-                new bootstrap.Tab(document.querySelector('#tab-login')).show(); document.getElementById('registerForm').reset();
-            });
-
-            // --- REPORTING ---
-            window.submitReport = function(e, type) {
-                e.preventDefault();
-                const emailInput = e.target.querySelector('input[type="email"]');
-                const msgInput = e.target.querySelector('textarea');
-                
-                const email = emailInput ? emailInput.value : (currentUser ? currentUser.email : 'Anonymous');
-                const msg = msgInput.value;
-
-                const rep = {
-                    sender: email, // Use email as sender ID
-                    type: type,
-                    message: msg,
-                    date: new Date().toLocaleDateString()
-                };
-                DB.saveReport(rep);
-                bootstrap.Modal.getInstance(e.target.closest('.modal')).hide();
-                e.target.reset();
-                Swal.fire(t('alert_sent'));
-            };
-
-            // --- NOTIFICATIONS ---
-            window.checkNotifications = function() {
-                const notifs = DB.getNotifs().filter(n => n.target === 'all' || n.target === currentUser.role);
-                const badge = document.getElementById('notifBadge');
-                if(notifs.length > 0) { badge.classList.remove('d-none'); } else { badge.classList.add('d-none'); }
-            };
-            window.openNotifications = function() {
-                const list = document.getElementById('notifList'); list.innerHTML = '';
-                const notifs = DB.getNotifs().filter(n => n.target === 'all' || n.target === currentUser.role).reverse();
-                if(notifs.length === 0) list.innerHTML = '<div class="p-3 text-center text-muted">لا توجد إشعارات</div>';
-                notifs.forEach(n => { list.innerHTML += `<div class="list-group-item"><div class="d-flex w-100 justify-content-between"><h6 class="mb-1 text-primary fw-bold">${n.sender || 'فريق مرافق'}</h6><small class="text-muted">${n.date}</small></div><p class="mb-1 small">${n.message}</p></div>`; });
-                new bootstrap.Modal(document.getElementById('notifModal')).show();
-                document.getElementById('notifBadge').classList.add('d-none');
-            };
-
-            // --- PARENT ---
-            window.loadParentStats = function() {
-                const reqs = DB.getRequests().filter(r => r.parentId === currentUser.id);
-                document.getElementById('pStatTotal').innerText = reqs.length;
-                document.getElementById('pStatAccepted').innerText = reqs.filter(r=>r.status==='accepted').length;
-                document.getElementById('pStatPending').innerText = reqs.filter(r=>r.status==='pending').length;
-            };
-
-            window.performSearch = function() {
-                const container = document.getElementById('resultsArea');
-                const sWilaya = document.getElementById('searchWilaya').value;
-                const sService = document.getElementById('searchService').value;
-                
-                container.innerHTML = '';
-                DB.getUsers().filter(u => u.role === 'caregiver' && !u.isBanned && u.isAvailable 
-                    && (sWilaya === 'الكل' || u.wilaya === sWilaya)
-                    && (sService === 'الكل' || u.service === sService)
-                ).forEach(c => {
-                    // CALCULATE STARS
-                    const reviews = DB.getReviews().filter(r => r.caregiverId === c.id);
-                    const count = reviews.length;
-                    const sum = reviews.reduce((acc, r) => acc + parseInt(r.stars), 0);
-                    const avg = count ? (sum / count).toFixed(1) : 0;
-                    
-                    let starsHtml = '';
-                    for(let i=1; i<=5; i++) {
-                        starsHtml += `<i class="bi bi-star${i <= Math.round(avg) ? '-fill text-warning' : ' text-muted'}" style="font-size:0.9rem"></i>`;
-                    }
-
-                    const sObj = services.find(s=>s.ar === c.service || s.fr === c.service);
-                    const displayService = sObj ? (currentLang==='ar'?sObj.ar:sObj.fr) : c.service;
-                    
-                    container.innerHTML += `
-                        <div class="col-md-4">
-                            <div class="custom-card p-3 text-center h-100">
-                                <img src="${c.photo}" class="profile-img-preview mb-2">
-                                <h5 class="fw-bold mb-1">${c.name}</h5>
-                                <div class="mb-2">${starsHtml} <small class="text-muted">(${avg})</small></div>
-                                <p class="small text-muted mb-3">${displayService}<br>📍 ${c.wilaya}</p>
-                                <button class="btn btn-outline-primary w-100 fw-bold mt-auto" onclick="openRequestModal('${c.id}')">${t('request_service')}</button>
-                            </div>
-                        </div>`;
-                });
-                if(container.innerHTML === '') container.innerHTML = '<div class="col-12 text-center text-muted">لا توجد نتائج</div>';
-            };
-
-            window.openRequestModal = function(id) { document.getElementById('targetCaregiverId').value = id; new bootstrap.Modal(document.getElementById('requestModal')).show(); };
-
-            document.getElementById('sendRequestForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const req = {
-                    id: Date.now(), parentId: currentUser.id, parentName: currentUser.name, parentPhone: currentUser.phone, 
-                    caregiverId: document.getElementById('targetCaregiverId').value,
-                    childName: document.getElementById('reqChildName').value, childAge: document.getElementById('reqChildAge').value,
-                    schoolLevel: document.getElementById('reqSchoolLevel').value, childCondition: document.getElementById('reqChildCondition').value,
-                    duration: document.getElementById('reqDuration').value, days: document.getElementById('reqDays').value, status: 'pending', isRated: false
-                };
-                DB.saveRequest(req);
-                bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide();
-                Swal.fire({icon:'success', title: t('alert_success')});
-                loadMyRequests(); loadParentStats();
-            });
-
-            window.loadMyRequests = function() {
-                const tbody = document.getElementById('myRequestsTable'); tbody.innerHTML = '';
-                DB.getRequests().filter(r => r.parentId === currentUser.id).forEach(r => {
-                    const cg = DB.getUsers().find(u => u.id == r.caregiverId) || {name:'?'};
-                    let status = r.status === 'pending' ? `<span class="badge bg-warning text-dark">${t('stat_new_req')}</span>` : (r.status === 'accepted' ? `<span class="badge bg-success">${t('stat_accepted')}</span>` : `<span class="badge bg-danger">${t('stat_rejected')}</span>`);
-                    
-                    let action = '-';
-                    if(r.status==='accepted') {
-                        action = `<a href="tel:${cg.phone}" class="btn btn-sm btn-success rounded-circle ms-1"><i class="bi bi-telephone-fill"></i></a>`;
-                        if(!r.isRated) {
-                            action += `<button class="btn btn-sm btn-warning rounded-circle text-dark" onclick="openRateModal('${r.id}', '${cg.id}', '${cg.name}')"><i class="bi bi-star-fill"></i></button>`;
-                        }
-                    }
-                    
-                    tbody.innerHTML += `<tr><td data-label="${t('th_caregiver')}">${cg.name}</td><td data-label="${t('th_service')}">${r.childName}</td><td data-label="${t('th_status')}">${status}</td><td data-label="${t('th_action')}">${action}</td></tr>`;
-                });
-            };
-
-            // --- RATING SYSTEM ---
-            window.openRateModal = function(rid, cid, cname) {
-                document.getElementById('rateRequestId').value = rid;
-                document.getElementById('rateCaregiverId').value = cid;
-                document.getElementById('rateCgName').innerText = cname;
-                document.getElementById('ratingValue').value = "0";
-                document.getElementById('rateComment').value = "";
-                document.querySelectorAll('#starContainer i').forEach(s => s.classList.remove('text-warning'));
-                new bootstrap.Modal(document.getElementById('rateModal')).show();
-            };
-
-            document.querySelectorAll('#starContainer i').forEach(star => {
-                star.addEventListener('click', function() {
-                    const val = this.getAttribute('data-val');
-                    document.getElementById('ratingValue').value = val;
-                    document.querySelectorAll('#starContainer i').forEach(s => {
-                        if(s.getAttribute('data-val') <= val) s.classList.add('text-warning');
-                        else s.classList.remove('text-warning');
-                    });
-                });
-            });
-
-            window.submitReview = function() {
-                const rid = document.getElementById('rateRequestId').value;
-                const stars = document.getElementById('ratingValue').value;
-                
-                if(stars == "0") { Swal.fire('الرجاء اختيار عدد النجوم'); return; }
-
-                const review = {
-                    id: Date.now(),
-                    requestId: rid,
-                    caregiverId: document.getElementById('rateCaregiverId').value,
-                    parentId: currentUser.id,
-                    stars: stars,
-                    comment: document.getElementById('rateComment').value,
-                    date: new Date().toLocaleDateString()
-                };
-
-                DB.saveReview(review);
-                DB.updateRequestRating(rid); 
-                bootstrap.Modal.getInstance(document.getElementById('rateModal')).hide();
-                Swal.fire({icon:'success', title: t('alert_sent')});
-                loadMyRequests(); 
-            };
-
-            // --- CAREGIVER ---
-            window.loadCaregiverDashboard = function() {
-                document.getElementById('cgNameProfile').innerText = currentUser.name;
-                document.getElementById('dashboardProfileImg').src = currentUser.photo;
-                const toggle = document.getElementById('availabilityToggle');
-                toggle.checked = currentUser.isAvailable;
-                
-                const reqs = DB.getRequests().filter(r => r.caregiverId == currentUser.id);
-                document.getElementById('cgStatTotal').innerText = reqs.length;
-                document.getElementById('cgStatPending').innerText = reqs.filter(r=>r.status==='pending').length;
-                document.getElementById('cgStatAccepted').innerText = reqs.filter(r=>r.status==='accepted').length;
-                document.getElementById('cgStatRejected').innerText = reqs.filter(r=>r.status==='rejected').length;
-                
-                const tbody = document.getElementById('incomingRequestsTable'); tbody.innerHTML = '';
-                reqs.forEach(r => {
-                    let action = r.status === 'pending' ? `<button class="btn btn-sm btn-success ms-1" onclick="handleReq(${r.id},'accepted')">✔</button><button class="btn btn-sm btn-danger" onclick="handleReq(${r.id},'rejected')">✘</button>` : (r.status === 'accepted' ? t('stat_accepted') : t('stat_rejected'));
-                    let parentInfo = r.parentName;
-                    if(r.status === 'accepted') {
-                        const pUser = DB.getUsers().find(u => u.id === r.parentId);
-                        const pPhone = pUser ? pUser.phone : r.parentPhone;
-                        parentInfo += `<br><a href="tel:${pPhone}" class="badge bg-success text-decoration-none"><i class="bi bi-telephone-fill"></i> ${pPhone}</a>`;
-                    }
-                    let details = `<div class="small">${r.childAge} | ${r.schoolLevel}<br><span class="text-danger fw-bold">${r.childCondition}</span><br>${r.duration}</div>`;
-                    tbody.innerHTML += `<tr><td data-label="${t('th_parent')}">${parentInfo}</td><td data-label="${t('th_child')}">${r.childName}</td><td data-label="${t('th_details')}">${details}</td><td data-label="${t('th_days')}">${r.days}</td><td data-label="${t('th_action')}">${action}</td></tr>`;
-                });
-            };
-            window.handleReq = function(id, status) { DB.updateRequest(id, status); loadCaregiverDashboard(); };
-            window.toggleAvailability = function() { currentUser.isAvailable = document.getElementById('availabilityToggle').checked; DB.updateUser(currentUser); };
-
-            // --- ADMIN ---
-            window.loadAdminDashboard = function() {
-                const users = DB.getUsers(); const reqs = DB.getRequests();
-                const reports = JSON.parse(localStorage.getItem('reports') || '[]');
-                
-                document.getElementById('statTotalUsers').innerText = users.length;
-                document.getElementById('statCaregivers').innerText = users.filter(u=>u.role==='caregiver').length;
-                document.getElementById('statReportsCount').innerText = reports.length; 
-                document.getElementById('statSuccessOps').innerText = reqs.filter(r=>r.status==='accepted').length;
-
-                const successCounts = {};
-                reqs.filter(r => r.status === 'accepted').forEach(r => { successCounts[r.caregiverId] = (successCounts[r.caregiverId] || 0) + 1; });
-                const topCgs = Object.keys(successCounts).map(id => { const u = users.find(x => x.id === id); return u ? { ...u, count: successCounts[id] } : null; }).filter(u => u).sort((a, b) => b.count - a.count).slice(0, 5);
-                const topTable = document.getElementById('adminTopCaregivers'); topTable.innerHTML = '';
-                topCgs.forEach((c, i) => { topTable.innerHTML += `<tr class="border-bottom"><td style="width:40px"><img src="${c.photo}" width="35" class="rounded-circle"></td><td><div class="fw-bold small">${c.name}</div><small class="text-muted">${c.service}</small></td><td class="text-end"><span class="badge bg-primary rounded-pill">${c.count}</span></td></tr>`; });
-
-                const transTable = document.getElementById('adminDailyTrans'); transTable.innerHTML = '';
-                reqs.slice(-5).reverse().forEach(r => {
-                    const cg = users.find(u => u.id === r.caregiverId) || {name: '?'};
-                    const st = r.status === 'accepted' ? '<span class="badge bg-success">✔</span>' : (r.status === 'rejected' ? '<span class="badge bg-danger">✘</span>' : '<span class="badge bg-warning">⏳</span>');
-                    transTable.innerHTML += `<tr><td>${r.parentName}</td><td>${cg.name}</td><td>${st}</td></tr>`;
-                });
-
-                const uTable = document.getElementById('adminUsersTable'); uTable.innerHTML = '';
-                const term = document.getElementById('adminSearch').value.toLowerCase();
-                users.filter(u => u.name.toLowerCase().includes(term) || u.phone.includes(term)).forEach(u => {
-                    const statusBadge = u.isBanned ? '<span class="badge bg-danger">محظور</span>' : '<span class="badge bg-success">نشط</span>';
-                    const actionBtn = u.isBanned ? `<button class="btn btn-sm btn-success" onclick="toggleBan('${u.id}')">فك حظر</button>` : `<button class="btn btn-sm btn-outline-danger" onclick="toggleBan('${u.id}')">حظر</button>`;
-                    uTable.innerHTML += `<tr><td>${u.name}</td><td>${u.role}</td><td>${u.phone}</td><td class="small">${u.email}</td><td class="text-danger font-monospace">${u.pass}</td><td>${statusBadge}</td><td>${actionBtn}</td></tr>`;
-                });
-
-                const rTable = document.getElementById('adminReportsTable'); rTable.innerHTML = '';
-                reports.reverse().forEach(r => {
-                    rTable.innerHTML += `<tr><td>${r.sender}</td><td>${r.type}</td><td>${r.message}</td><td>${r.date}</td></tr>`;
-                });
-            };
-
-            window.toggleBan = function(uid) {
-                const users = DB.getUsers(); const u = users.find(x => x.id === uid);
-                if(u) { u.isBanned = !u.isBanned; DB.saveAllUsers(users); loadAdminDashboard(); }
-            };
-
-            window.openSendNotifModal = function() { new bootstrap.Modal(document.getElementById('adminSendNotifModal')).show(); };
-            window.sendAdminNotification = function(e) {
-                e.preventDefault();
-                const target = document.getElementById('notifTarget').value;
-                const msg = document.getElementById('notifMsg').value;
-                DB.saveNotif({ target: target, message: msg, date: new Date().toLocaleDateString(), sender: 'فريق مرافق' });
-                bootstrap.Modal.getInstance(document.getElementById('adminSendNotifModal')).hide();
-                Swal.fire(t('alert_sent'));
-            };
-
-            // --- EDIT PROFILE ---
-            document.getElementById('editProfilePic').addEventListener('change', function(e) { if (e.target.files[0]) { const r = new FileReader(); r.onload = (ev) => document.getElementById('editImgPreview').src = ev.target.result; r.readAsDataURL(e.target.files[0]); } });
+        // --- AUTH ---
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const pass = document.getElementById('loginPass').value;
             
-            window.openEditProfileModal = function() {
-                if(!currentUser) return;
-                document.getElementById('editName').value = currentUser.name;
-                document.getElementById('editPhone').value = currentUser.phone;
-                document.getElementById('editWilaya').value = currentUser.wilaya;
-                document.getElementById('editImgPreview').src = currentUser.photo;
-                if(currentUser.role === 'caregiver') { document.getElementById('caregiverEditFields').classList.remove('d-none'); document.getElementById('editService').value = currentUser.service; } 
-                else { document.getElementById('caregiverEditFields').classList.add('d-none'); }
-                new bootstrap.Modal(document.getElementById('editProfileModal')).show();
-            };
-
-            document.getElementById('editProfileForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                currentUser.name = document.getElementById('editName').value;
-                currentUser.phone = document.getElementById('editPhone').value;
-                currentUser.wilaya = document.getElementById('editWilaya').value;
-                const newPass = document.getElementById('editNewPass').value;
-                if(newPass) currentUser.pass = newPass;
-                const img = document.getElementById('editImgPreview').src;
-                if(img && !img.includes('window.location')) currentUser.photo = img;
-                if(currentUser.role === 'caregiver') currentUser.service = document.getElementById('editService').value;
-
-                DB.updateUser(currentUser);
-                bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
-                Swal.fire({icon:'success', title: t('save')});
-                document.getElementById('userInfo').innerText = currentUser.name;
-                if(currentUser.role === 'caregiver') loadCaregiverDashboard();
-            });
-
-            // --- UTILS ---
-            window.toggleLanguage = function() {
-                currentLang = currentLang === 'ar' ? 'fr' : 'ar';
-                document.documentElement.lang = currentLang;
-                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-                document.getElementById('langSwitcher').innerText = currentLang === 'ar' ? 'FR' : 'AR';
-                document.querySelectorAll('[data-i18n]').forEach(el => el.innerText = t(el.getAttribute('data-i18n')));
-                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => el.placeholder = t(el.getAttribute('data-i18n-placeholder')));
-                populateDropdowns();
-                
-                // Refresh dashboards to apply dynamic translations
-                if(currentUser) {
-                    if(currentUser.role === 'parent') { performSearch(); loadMyRequests(); loadParentStats(); }
-                    else if(currentUser.role === 'caregiver') { loadCaregiverDashboard(); }
-                    else if(currentUser.role === 'admin') { loadAdminDashboard(); }
-                }
-            };
-
-            window.selectRole = function(role, elem) {
-                document.querySelectorAll('.role-selector').forEach(el => el.classList.remove('active'));
-                elem.classList.add('active');
-                document.getElementById('regRole').value = role;
-                document.getElementById('caregiverFields').classList.toggle('d-none', role !== 'caregiver');
-            };
-
-            function populateDropdowns() {
-                const wSelects = document.querySelectorAll('.dynamic-wilaya');
-                wSelects.forEach(sel => {
-                    const currentVal = sel.value; const isSearch = sel.id === 'searchWilaya';
-                    let html = isSearch ? `<option value="الكل">${t('all_wilayas')}</option>` : ``;
-                    wilayas.forEach(w => { html += `<option value="${w.ar}">${currentLang === 'ar' ? w.ar : w.fr}</option>`; });
-                    sel.innerHTML = html; if(currentVal && currentVal !== 'الكل') sel.value = currentVal;
-                });
-                const sSelects = document.querySelectorAll('.dynamic-service');
-                sSelects.forEach(sel => {
-                    const currentVal = sel.value; const isSearch = sel.id === 'searchService';
-                    let html = isSearch ? `<option value="الكل">${t('all_services')}</option>` : ``;
-                    services.forEach(s => { html += `<option value="${s.ar}">${currentLang === 'ar' ? s.ar : s.fr}</option>`; });
-                    sel.innerHTML = html; if(currentVal && currentVal !== 'الكل') sel.value = currentVal;
-                });
+            if(email === 'admin' && pass === 'abobob123') {
+                currentUser = { name: 'Admin', role: 'admin' };
+                document.getElementById('guestNav').classList.add('d-none');
+                document.getElementById('userNav').classList.remove('d-none');
+                document.getElementById('userInfo').innerText = 'Admin';
+                loadAdminDashboard();
+                switchView('adminView'); return;
             }
 
-            populateDropdowns();
-            switchView('landingView');
+            const user = DB.getUsers().find(u => u.email.toLowerCase() === email && u.pass === pass);
+            if(user) {
+                if(user.isBanned) { Swal.fire({icon:'error', title:'محظور', text:'تم حظر حسابك من قبل الإدارة'}); return; }
+                currentUser = user;
+                document.getElementById('guestNav').classList.add('d-none');
+                document.getElementById('userNav').classList.remove('d-none');
+                document.getElementById('userInfo').innerText = user.name;
+                checkNotifications();
+                if(user.role === 'parent') { switchView('parentView'); performSearch(); loadMyRequests(); loadParentStats(); }
+                else { switchView('caregiverView'); loadCaregiverDashboard(); }
+            } else {
+                Swal.fire({icon:'error', title: t('alert_error'), text:'بيانات غير صحيحة'});
+            }
         });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const role = document.getElementById('regRole').value;
+            const uid = 'u' + Date.now();
+            const newUser = { 
+                id: uid, 
+                name: document.getElementById('regName').value, 
+                email: document.getElementById('regEmail').value, 
+                phone: document.getElementById('regPhone').value, 
+                pass: document.getElementById('regPass').value, 
+                role: role, 
+                wilaya: document.getElementById('regWilaya').value, 
+                photo: "https://cdn-icons-png.flaticon.com/512/149/149071.png", 
+                isAvailable: true, 
+                isBanned: false 
+            };
+            if (role === 'caregiver') { newUser.service = document.getElementById('regService').value; }
+            
+            DB.saveUser(newUser); 
+            
+            Swal.fire({icon:'success', title:'تم التسجيل'});
+            new bootstrap.Tab(document.querySelector('#tab-login')).show(); document.getElementById('registerForm').reset();
+        });
+
+        // --- REPORTING ---
+        window.submitReport = function(e, type) {
+            e.preventDefault();
+            const emailInput = e.target.querySelector('input[type="email"]');
+            const msgInput = e.target.querySelector('textarea');
+            
+            const email = emailInput ? emailInput.value : (currentUser ? currentUser.email : 'Anonymous');
+            const msg = msgInput.value;
+
+            const rep = {
+                sender: email,
+                type: type,
+                message: msg,
+                date: new Date().toLocaleDateString()
+            };
+            DB.saveReport(rep);
+            bootstrap.Modal.getInstance(e.target.closest('.modal')).hide();
+            e.target.reset();
+            Swal.fire(t('alert_sent'));
+        };
+
+        // --- NOTIFICATIONS ---
+        window.checkNotifications = function() {
+            const notifs = DB.getNotifs().filter(n => n.target === 'all' || n.target === currentUser.role);
+            const badge = document.getElementById('notifBadge');
+            if(notifs.length > 0) { badge.classList.remove('d-none'); } else { badge.classList.add('d-none'); }
+        };
+        window.openNotifications = function() {
+            const list = document.getElementById('notifList'); list.innerHTML = '';
+            const notifs = DB.getNotifs().filter(n => n.target === 'all' || n.target === currentUser.role).reverse();
+            if(notifs.length === 0) list.innerHTML = '<div class="p-3 text-center text-muted">لا توجد إشعارات</div>';
+            notifs.forEach(n => { list.innerHTML += `<div class="list-group-item"><div class="d-flex w-100 justify-content-between"><h6 class="mb-1 text-primary fw-bold">${n.sender || 'فريق مرافق'}</h6><small class="text-muted">${n.date}</small></div><p class="mb-1 small">${n.message}</p></div>`; });
+            new bootstrap.Modal(document.getElementById('notifModal')).show();
+            document.getElementById('notifBadge').classList.add('d-none');
+        };
+
+        // --- PARENT ---
+        window.loadParentStats = function() {
+            const reqs = DB.getRequests().filter(r => r.parentId === currentUser.id);
+            document.getElementById('pStatTotal').innerText = reqs.length;
+            document.getElementById('pStatAccepted').innerText = reqs.filter(r=>r.status==='accepted').length;
+            document.getElementById('pStatPending').innerText = reqs.filter(r=>r.status==='pending').length;
+        };
+
+        window.performSearch = function() {
+            const container = document.getElementById('resultsArea');
+            const sWilaya = document.getElementById('searchWilaya').value;
+            const sService = document.getElementById('searchService').value;
+            
+            container.innerHTML = '';
+            DB.getUsers().filter(u => u.role === 'caregiver' && !u.isBanned && u.isAvailable 
+                && (sWilaya === 'الكل' || u.wilaya === sWilaya)
+                && (sService === 'الكل' || u.service === sService)
+            ).forEach(c => {
+                const reviews = DB.getReviews().filter(r => r.caregiverId === c.id);
+                const count = reviews.length;
+                const sum = reviews.reduce((acc, r) => acc + parseInt(r.stars), 0);
+                const avg = count ? (sum / count).toFixed(1) : 0;
+                
+                let starsHtml = '';
+                for(let i=1; i<=5; i++) {
+                    starsHtml += `<i class="bi bi-star${i <= Math.round(avg) ? '-fill text-warning' : ' text-muted'}" style="font-size:0.9rem"></i>`;
+                }
+
+                const sObj = services.find(s=>s.ar === c.service || s.fr === c.service);
+                const displayService = sObj ? (currentLang==='ar'?sObj.ar:sObj.fr) : c.service;
+                
+                container.innerHTML += `
+                    <div class="col-md-4">
+                        <div class="custom-card p-3 text-center h-100">
+                            <img src="${c.photo}" class="profile-img-preview mb-2">
+                            <h5 class="fw-bold mb-1">${c.name}</h5>
+                            <div class="mb-2">${starsHtml} <small class="text-muted">(${avg})</small></div>
+                            <p class="small text-muted mb-3">${displayService}<br>📍 ${c.wilaya}</p>
+                            <button class="btn btn-outline-primary w-100 fw-bold mt-auto" onclick="openRequestModal('${c.id}')">${t('request_service')}</button>
+                        </div>
+                    </div>`;
+            });
+            if(container.innerHTML === '') container.innerHTML = '<div class="col-12 text-center text-muted">لا توجد نتائج</div>';
+        };
+
+        window.openRequestModal = function(id) { document.getElementById('targetCaregiverId').value = id; new bootstrap.Modal(document.getElementById('requestModal')).show(); };
+
+        document.getElementById('sendRequestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const rid = Date.now();
+            const req = {
+                id: rid, parentId: currentUser.id, parentName: currentUser.name, parentPhone: currentUser.phone, 
+                caregiverId: document.getElementById('targetCaregiverId').value,
+                childName: document.getElementById('reqChildName').value, childAge: document.getElementById('reqChildAge').value,
+                schoolLevel: document.getElementById('reqSchoolLevel').value, childCondition: document.getElementById('reqChildCondition').value,
+                duration: document.getElementById('reqDuration').value, days: document.getElementById('reqDays').value, status: 'pending', isRated: false
+            };
+            DB.saveRequest(req);
+            bootstrap.Modal.getInstance(document.getElementById('requestModal')).hide();
+            Swal.fire({icon:'success', title: t('alert_success')});
+        });
+
+        window.loadMyRequests = function() {
+            const tbody = document.getElementById('myRequestsTable'); tbody.innerHTML = '';
+            DB.getRequests().filter(r => r.parentId === currentUser.id).forEach(r => {
+                const cg = DB.getUsers().find(u => u.id == r.caregiverId) || {name:'?'};
+                let status = r.status === 'pending' ? `<span class="badge bg-warning text-dark">${t('stat_new_req')}</span>` : (r.status === 'accepted' ? `<span class="badge bg-success">${t('stat_accepted')}</span>` : `<span class="badge bg-danger">${t('stat_rejected')}</span>`);
+                
+                let action = '-';
+                if(r.status==='accepted') {
+                    action = `<a href="tel:${cg.phone}" class="btn btn-sm btn-success rounded-circle ms-1"><i class="bi bi-telephone-fill"></i></a>`;
+                    if(!r.isRated) {
+                        action += `<button class="btn btn-sm btn-warning rounded-circle text-dark" onclick="openRateModal('${r.id}', '${cg.id}', '${cg.name}')"><i class="bi bi-star-fill"></i></button>`;
+                    }
+                }
+                
+                tbody.innerHTML += `<tr><td data-label="${t('th_caregiver')}">${cg.name}</td><td data-label="${t('th_service')}">${r.childName}</td><td data-label="${t('th_status')}">${status}</td><td data-label="${t('th_action')}">${action}</td></tr>`;
+            });
+        };
+
+        // --- RATING SYSTEM ---
+        window.openRateModal = function(rid, cid, cname) {
+            document.getElementById('rateRequestId').value = rid;
+            document.getElementById('rateCaregiverId').value = cid;
+            document.getElementById('rateCgName').innerText = cname;
+            document.getElementById('ratingValue').value = "0";
+            document.getElementById('rateComment').value = "";
+            document.querySelectorAll('#starContainer i').forEach(s => s.classList.remove('text-warning'));
+            new bootstrap.Modal(document.getElementById('rateModal')).show();
+        };
+
+        document.querySelectorAll('#starContainer i').forEach(star => {
+            star.addEventListener('click', function() {
+                const val = this.getAttribute('data-val');
+                document.getElementById('ratingValue').value = val;
+                document.querySelectorAll('#starContainer i').forEach(s => {
+                    if(s.getAttribute('data-val') <= val) s.classList.add('text-warning');
+                    else s.classList.remove('text-warning');
+                });
+            });
+        });
+
+        window.submitReview = function() {
+            const rid = document.getElementById('rateRequestId').value;
+            const stars = document.getElementById('ratingValue').value;
+            
+            if(stars == "0") { Swal.fire('الرجاء اختيار عدد النجوم'); return; }
+
+            const review = {
+                id: Date.now(),
+                requestId: rid,
+                caregiverId: document.getElementById('rateCaregiverId').value,
+                parentId: currentUser.id,
+                stars: stars,
+                comment: document.getElementById('rateComment').value,
+                date: new Date().toLocaleDateString()
+            };
+
+            DB.saveReview(review);
+            DB.updateRequestRating(rid); 
+            bootstrap.Modal.getInstance(document.getElementById('rateModal')).hide();
+            Swal.fire({icon:'success', title: t('alert_sent')});
+        };
+
+        // --- CAREGIVER ---
+        window.loadCaregiverDashboard = function() {
+            document.getElementById('cgNameProfile').innerText = currentUser.name;
+            document.getElementById('dashboardProfileImg').src = currentUser.photo;
+            const toggle = document.getElementById('availabilityToggle');
+            toggle.checked = currentUser.isAvailable;
+            
+            const reqs = DB.getRequests().filter(r => r.caregiverId == currentUser.id);
+            document.getElementById('cgStatTotal').innerText = reqs.length;
+            document.getElementById('cgStatPending').innerText = reqs.filter(r=>r.status==='pending').length;
+            document.getElementById('cgStatAccepted').innerText = reqs.filter(r=>r.status==='accepted').length;
+            document.getElementById('cgStatRejected').innerText = reqs.filter(r=>r.status==='rejected').length;
+            
+            const tbody = document.getElementById('incomingRequestsTable'); tbody.innerHTML = '';
+            reqs.forEach(r => {
+                let action = r.status === 'pending' ? `<button class="btn btn-sm btn-success ms-1" onclick="handleReq(${r.id},'accepted')">✔</button><button class="btn btn-sm btn-danger" onclick="handleReq(${r.id},'rejected')">✘</button>` : (r.status === 'accepted' ? t('stat_accepted') : t('stat_rejected'));
+                let parentInfo = r.parentName;
+                if(r.status === 'accepted') {
+                    const pUser = DB.getUsers().find(u => u.id === r.parentId);
+                    const pPhone = pUser ? pUser.phone : r.parentPhone;
+                    parentInfo += `<br><a href="tel:${pPhone}" class="badge bg-success text-decoration-none"><i class="bi bi-telephone-fill"></i> ${pPhone}</a>`;
+                }
+                let details = `<div class="small">${r.childAge} | ${r.schoolLevel}<br><span class="text-danger fw-bold">${r.childCondition}</span><br>${r.duration}</div>`;
+                tbody.innerHTML += `<tr><td data-label="${t('th_parent')}">${parentInfo}</td><td data-label="${t('th_child')}">${r.childName}</td><td data-label="${t('th_details')}">${details}</td><td data-label="${t('th_days')}">${r.days}</td><td data-label="${t('th_action')}">${action}</td></tr>`;
+            });
+        };
+        window.handleReq = function(id, status) { DB.updateRequest(id, status); };
+        window.toggleAvailability = function() { 
+            currentUser.isAvailable = document.getElementById('availabilityToggle').checked; 
+            DB.updateUser(currentUser); 
+        };
+
+        // --- ADMIN ---
+        window.loadAdminDashboard = function() {
+            const users = DB.getUsers(); const reqs = DB.getRequests();
+            const reports = DB.getReports();
+            
+            document.getElementById('statTotalUsers').innerText = users.length;
+            document.getElementById('statCaregivers').innerText = users.filter(u=>u.role==='caregiver').length;
+            document.getElementById('statReportsCount').innerText = reports.length; 
+            document.getElementById('statSuccessOps').innerText = reqs.filter(r=>r.status==='accepted').length;
+
+            const successCounts = {};
+            reqs.filter(r => r.status === 'accepted').forEach(r => { successCounts[r.caregiverId] = (successCounts[r.caregiverId] || 0) + 1; });
+            const topCgs = Object.keys(successCounts).map(id => { const u = users.find(x => x.id === id); return u ? { ...u, count: successCounts[id] } : null; }).filter(u => u).sort((a, b) => b.count - a.count).slice(0, 5);
+            const topTable = document.getElementById('adminTopCaregivers'); topTable.innerHTML = '';
+            topCgs.forEach((c, i) => { topTable.innerHTML += `<tr class="border-bottom"><td style="width:40px"><img src="${c.photo}" width="35" class="rounded-circle"></td><td><div class="fw-bold small">${c.name}</div><small class="text-muted">${c.service}</small></td><td class="text-end"><span class="badge bg-primary rounded-pill">${c.count}</span></td></tr>`; });
+
+            const transTable = document.getElementById('adminDailyTrans'); transTable.innerHTML = '';
+            reqs.slice(-5).reverse().forEach(r => {
+                const cg = users.find(u => u.id === r.caregiverId) || {name: '?'};
+                const st = r.status === 'accepted' ? '<span class="badge bg-success">✔</span>' : (r.status === 'rejected' ? '<span class="badge bg-danger">✘</span>' : '<span class="badge bg-warning">⏳</span>');
+                transTable.innerHTML += `<tr><td>${r.parentName}</td><td>${cg.name}</td><td>${st}</td></tr>`;
+            });
+
+            const uTable = document.getElementById('adminUsersTable'); uTable.innerHTML = '';
+            const term = document.getElementById('adminSearch').value.toLowerCase();
+            users.filter(u => u.name.toLowerCase().includes(term) || u.phone.includes(term)).forEach(u => {
+                const statusBadge = u.isBanned ? '<span class="badge bg-danger">محظور</span>' : '<span class="badge bg-success">نشط</span>';
+                const actionBtn = u.isBanned ? `<button class="btn btn-sm btn-success" onclick="toggleBan('${u.id}')">فك حظر</button>` : `<button class="btn btn-sm btn-outline-danger" onclick="toggleBan('${u.id}')">حظر</button>`;
+                uTable.innerHTML += `<tr><td>${u.name}</td><td>${u.role}</td><td>${u.phone}</td><td class="small">${u.email}</td><td class="text-danger font-monospace">${u.pass}</td><td>${statusBadge}</td><td>${actionBtn}</td></tr>`;
+            });
+
+            const rTable = document.getElementById('adminReportsTable'); rTable.innerHTML = '';
+            reports.reverse().forEach(r => {
+                rTable.innerHTML += `<tr><td>${r.sender}</td><td>${r.type}</td><td>${r.message}</td><td>${r.date}</td></tr>`;
+            });
+        };
+
+        window.toggleBan = function(uid) {
+            const u = DB.getUsers().find(x => x.id === uid);
+            if(u) { 
+                u.isBanned = !u.isBanned; 
+                DB.updateUser(u);
+            }
+        };
+
+        window.openSendNotifModal = function() { new bootstrap.Modal(document.getElementById('adminSendNotifModal')).show(); };
+        window.sendAdminNotification = function(e) {
+            e.preventDefault();
+            const target = document.getElementById('notifTarget').value;
+            const msg = document.getElementById('notifMsg').value;
+            DB.saveNotif({ target: target, message: msg, date: new Date().toLocaleDateString(), sender: 'فريق مرافق' });
+            bootstrap.Modal.getInstance(document.getElementById('adminSendNotifModal')).hide();
+            Swal.fire(t('alert_sent'));
+        };
+
+        // --- EDIT PROFILE ---
+        document.getElementById('editProfilePic').addEventListener('change', function(e) { if (e.target.files[0]) { const r = new FileReader(); r.onload = (ev) => document.getElementById('editImgPreview').src = ev.target.result; r.readAsDataURL(e.target.files[0]); } });
+        
+        window.openEditProfileModal = function() {
+            if(!currentUser) return;
+            document.getElementById('editName').value = currentUser.name;
+            document.getElementById('editPhone').value = currentUser.phone;
+            document.getElementById('editWilaya').value = currentUser.wilaya;
+            document.getElementById('editImgPreview').src = currentUser.photo;
+            if(currentUser.role === 'caregiver') { document.getElementById('caregiverEditFields').classList.remove('d-none'); document.getElementById('editService').value = currentUser.service; } 
+            else { document.getElementById('caregiverEditFields').classList.add('d-none'); }
+            new bootstrap.Modal(document.getElementById('editProfileModal')).show();
+        };
+
+        document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            currentUser.name = document.getElementById('editName').value;
+            currentUser.phone = document.getElementById('editPhone').value;
+            currentUser.wilaya = document.getElementById('editWilaya').value;
+            const newPass = document.getElementById('editNewPass').value;
+            if(newPass) currentUser.pass = newPass;
+            const img = document.getElementById('editImgPreview').src;
+            if(img && !img.includes('window.location')) currentUser.photo = img;
+            if(currentUser.role === 'caregiver') currentUser.service = document.getElementById('editService').value;
+
+            DB.updateUser(currentUser);
+            bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
+            Swal.fire({icon:'success', title: t('save')});
+            document.getElementById('userInfo').innerText = currentUser.name;
+        });
+
+        // --- UTILS ---
+        window.toggleLanguage = function() {
+            currentLang = currentLang === 'ar' ? 'fr' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('langSwitcher').innerText = currentLang === 'ar' ? 'FR' : 'AR';
+            document.querySelectorAll('[data-i18n]').forEach(el => el.innerText = t(el.getAttribute('data-i18n')));
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => el.placeholder = t(el.getAttribute('data-i18n-placeholder')));
+            populateDropdowns();
+            refreshUI();
+        };
+
+        window.selectRole = function(role, elem) {
+            document.querySelectorAll('.role-selector').forEach(el => el.classList.remove('active'));
+            elem.classList.add('active');
+            document.getElementById('regRole').value = role;
+            document.getElementById('caregiverFields').classList.toggle('d-none', role !== 'caregiver');
+        };
+
+        function populateDropdowns() {
+            const wSelects = document.querySelectorAll('.dynamic-wilaya');
+            wSelects.forEach(sel => {
+                const currentVal = sel.value; const isSearch = sel.id === 'searchWilaya';
+                let html = isSearch ? `<option value="الكل">${t('all_wilayas')}</option>` : ``;
+                wilayas.forEach(w => { html += `<option value="${w.ar}">${currentLang === 'ar' ? w.ar : w.fr}</option>`; });
+                sel.innerHTML = html; if(currentVal && currentVal !== 'الكل') sel.value = currentVal;
+            });
+            const sSelects = document.querySelectorAll('.dynamic-service');
+            sSelects.forEach(sel => {
+                const currentVal = sel.value; const isSearch = sel.id === 'searchService';
+                let html = isSearch ? `<option value="الكل">${t('all_services')}</option>` : ``;
+                services.forEach(s => { html += `<option value="${s.ar}">${currentLang === 'ar' ? s.ar : s.fr}</option>`; });
+                sel.innerHTML = html; if(currentVal && currentVal !== 'الكل') sel.value = currentVal;
+            });
+        }
     </script>
 </body>
 </html>
